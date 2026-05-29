@@ -1087,10 +1087,121 @@
         @media (max-width: 768px) {
             .header-search-wrap { display: none; }
         }
+
+        /* Pantalla de Carga Avanzada */
+        .loader-wrapper {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #050505; z-index: 99999;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: opacity 0.8s cubic-bezier(0.86, 0, 0.07, 1), visibility 0.8s, transform 0.8s cubic-bezier(0.86, 0, 0.07, 1);
+            background-image: 
+                linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            background-position: center center;
+        }
+        .loader-wrapper.hidden { 
+            opacity: 0; 
+            visibility: hidden; 
+            transform: scale(1.05); /* Efecto de acercamiento al desaparecer */
+        }
+        
+        .loader-content {
+            display: flex; flex-direction: column; align-items: center; position: relative;
+        }
+
+        .loader-logo-container {
+            position: relative;
+            width: 130px; height: 130px;
+            margin-bottom: 35px;
+            display: flex; justify-content: center; align-items: center;
+        }
+        
+        .loader-logo {
+            width: 100px; height: 100px; border-radius: 50%; object-fit: cover;
+            position: relative; z-index: 2;
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.6);
+            border: 2px solid var(--primary);
+        }
+        
+        /* Anillo giratorio futurista */
+        .loader-ring {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border: 2px dashed rgba(0, 212, 255, 0.6);
+            border-radius: 50%;
+            animation: spinRing 6s linear infinite;
+            z-index: 1;
+        }
+        .loader-ring::before {
+            content: ''; position: absolute;
+            top: -6px; left: -6px; right: -6px; bottom: -6px;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 50%;
+            animation: spinRing 4s linear infinite reverse;
+        }
+        @keyframes spinRing { 100% { transform: rotate(360deg); } }
+
+        .loader-text {
+            font-family: 'Orbitron', sans-serif;
+            color: #fff; font-size: 1.3rem; font-weight: 700;
+            letter-spacing: 4px; margin-bottom: 25px;
+            text-transform: uppercase;
+            animation: textGlow 2s ease-in-out infinite alternate;
+        }
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 5px rgba(0,212,255,0.3); }
+            100% { text-shadow: 0 0 15px rgba(0,212,255,0.8), 0 0 25px rgba(0,212,255,0.5); }
+        }
+
+        /* Barra de progreso de Neón */
+        .loader-progress {
+            width: 280px; height: 3px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 4px;
+            position: relative; overflow: hidden;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
+        }
+        .loader-progress-bar {
+            position: absolute; top: 0; left: 0; height: 100%;
+            background: var(--primary); width: 0%;
+            box-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary);
+            animation: fillProgress 1.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        @keyframes fillProgress {
+            0% { width: 0%; }
+            40% { width: 45%; }
+            70% { width: 85%; }
+            100% { width: 100%; }
+        }
+
+        /* Texto de estado de carga */
+        .loader-status {
+            margin-top: 15px; font-size: 0.85rem; color: var(--primary);
+            font-family: 'Rajdhani', sans-serif; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 2px;
+            animation: blinkStatus 1s infinite;
+        }
+        @keyframes blinkStatus { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
     </style>
 <base target="_blank">
 </head>
 <body>
+    <!-- Pantalla de Carga Avanzada -->
+    <div id="loader" class="loader-wrapper">
+        <div class="loader-content">
+            <div class="loader-logo-container">
+                <div class="loader-ring"></div>
+                <img src="https://64.media.tumblr.com/b43e532856d9c41cf269d4fb70e21b6d/775bee4245596f43-19/s540x810/17c8b08a7fc9984523b866e3aafba1fe96262c95.jpg" alt="EC Game Logo" class="loader-logo">
+            </div>
+            <div class="loader-text">INICIANDO SISTEMA</div>
+            <div class="loader-progress">
+                <div class="loader-progress-bar"></div>
+            </div>
+            <div class="loader-status" id="loaderStatus">Cargando módulos...</div>
+        </div>
+    </div>
+
     <div class="bg-animation"></div>
     <div class="particles" id="particles"></div>
 
@@ -1436,6 +1547,28 @@
     <footer><div class="footer-logo">EC <span>GAME</span></div><div class="social-links"><a href="https://www.facebook.com/ecdownloads"><i class="fab fa-facebook-f"></i></a><a href="https://x.com/Estalingrado27"><i class="fab fa-twitter"></i></a><a href="https://www.youtube.com/@ecdownload"><i class="fab fa-youtube"></i></a><a href="https://www.tumblr.com/fotopia"><i class="fab fa-tumblr"></i></a><a href="https://t.me/pcgameslatino"><i class="fab fa-telegram"></i></a></div><p>EC Game Software Lab <a href="https://centercorpec.wixsite.com/error404" style="color:var(--primary); text-decoration:none;">©2027 by Estalingrado Corp Proudly</a></p></footer>
 
     <script>
+        // Logica avanzada de la pantalla de carga
+        window.addEventListener('load', function() {
+            const statusTexts = ["Estableciendo conexión...", "Verificando base de datos...", "Acceso Concedido."];
+            const statusEl = document.getElementById('loaderStatus');
+            let idx = 0;
+            
+            // Cambiar textos dinámicamente
+            const textInterval = setInterval(() => {
+                if(idx < statusTexts.length) {
+                    statusEl.innerText = statusTexts[idx];
+                    idx++;
+                }
+            }, 500);
+
+            // Ocultar la pantalla justo después de que la barra de progreso llegue al 100% (1600ms)
+            setTimeout(() => {
+                clearInterval(textInterval);
+                const loader = document.getElementById('loader');
+                if(loader) loader.classList.add('hidden');
+            }, 1800); 
+        });
+
         const particlesContainer = document.getElementById('particles');
         for (let i = 0; i < 50; i++) { const p = document.createElement('div'); p.className = 'particle'; p.style.left = Math.random()*100+'%'; p.style.animationDelay = Math.random()*15+'s'; p.style.animationDuration = (Math.random()*10+10)+'s'; particlesContainer.appendChild(p); }
         const observer = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
