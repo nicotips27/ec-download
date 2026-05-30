@@ -448,10 +448,67 @@
             margin-top: 20px;
         }
 
+        /* Botón de Menú Móvil */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--primary);
+            font-size: 28px;
+            cursor: pointer;
+            z-index: 1005;
+            transition: transform 0.3s, text-shadow 0.3s;
+        }
+        .mobile-menu-btn:hover {
+            transform: scale(1.1);
+            text-shadow: 0 0 15px var(--primary);
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
             nav ul {
-                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(10, 10, 15, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                align-items: center;
+                padding: 0;
+                gap: 0;
+                border-bottom: 2px solid var(--primary);
+                box-shadow: 0 20px 40px rgba(0,0,0,0.9);
+                clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+                transition: clip-path 0.4s cubic-bezier(0.86, 0, 0.07, 1);
+            }
+
+            nav ul.active {
+                clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            }
+
+            nav ul li {
+                width: 100%;
+                text-align: center;
+                border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+            }
+
+            nav ul li:last-child {
+                border-bottom: none;
+            }
+
+            nav ul li a {
+                display: block;
+                padding: 20px;
+                font-size: 1.15rem;
+            }
+            
+            nav ul li a::after {
+                display: none; /* Quitamos la línea de hover en móvil para no interferir */
             }
 
             .hero {
@@ -1222,8 +1279,12 @@
             <div class="header-search-dropdown" id="headerSearchDropdown"></div>
         </div>
 
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <i class="fas fa-bars"></i>
+        </button>
+
         <nav>
-            <ul>
+            <ul id="navMenu">
                 <li><a href="https://nicotips27.github.io/Estalingrado-corp-Buscador-/" target="_self" style="color: var(--primary); font-weight: 700;"><i class="fas fa-building" style="margin-right: 5px;"></i>Estalingrado Corp</a></li>
                 <li><a href="#inicio">Inicio</a></li>
                 <li><a href="#ec-games">EC Games</a></li>
@@ -1379,13 +1440,12 @@
         
         <h3 style="font-family:'Orbitron',sans-serif; color:var(--primary); text-align:center; font-size:1.2rem; margin:15px 0 25px;"><i class="fas fa-crosshairs" style="margin-right:8px;"></i>JUEGOS PC</h3>
         <div class="grid" style="max-width:100%; margin-bottom:40px;">
-            <div class="card" style="cursor:default;"><span class="license-tag license-paid">ESTRATEGIA</span><div class="card-icon"><i class="fas fa-crosshairs" style="color:#E91E63;"></i></div><h3>C&C Red Alert 2 Yuri's Revenge</h3><p>Clásico juego de estrategia en tiempo real. Dirige tropas soviéticas o aliadas en una guerra alternativa.</p>
+            <div class="card" style="cursor:default;"><span class="license-tag license-free">CATÁLOGO</span><div class="card-icon" style="padding:0; overflow:hidden; border-radius:20px; border: 1px solid var(--primary);"><img src="https://64.media.tumblr.com/5e77caddca38e2f1b3fa07d22df4635a/d28c11561400dc7c-d3/s540x810/2aa62fd3de4529b3bb9de55b1acc4d8535b1602c.pnj" alt="EC Download" style="width:100%; height:100%; object-fit:cover;"></div><h3>Juegos PC y más programas en EC Download</h3><p>Accede al catálogo completo de juegos y software a través de nuestro portal.</p>
             <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
-                <a href="https://store.steampowered.com/app/2229850/Command__Conquer_Red_Alert_2_and_Yuris_Revenge/" class="card-button" style="font-size:0.8rem; padding:8px 15px;">TIENDA OFICIAL</a>
-                <button class="card-button" style="position:relative; font-size:0.8rem; padding:8px 15px; background:#000; color:var(--primary); border:2px solid var(--primary); transition:all 0.3s;" onmouseover="this.style.background='var(--primary)'; this.style.color='#000'" onmouseout="this.style.background='#000'; this.style.color='var(--primary)'" onclick="startAdDownload('https://www.mediafire.com/file/zkd57iw30aws5bm/Command_n_Conquer_Red_Alert_2.rar/file', 'Estalingradocorp')">
+                <a href="https://centercorpec.wixsite.com/softwarelab" target="_self" class="card-button" style="position:relative; font-size:0.8rem; padding:8px 15px; background:#000; color:var(--primary); border:2px solid var(--primary); transition:all 0.3s; text-decoration:none;" onmouseover="this.style.background='var(--primary)'; this.style.color='#000'" onmouseout="this.style.background='#000'; this.style.color='var(--primary)'">
                     EC DOWNLOAD
                     <span style="position:absolute; top:-10px; right:-10px; background:linear-gradient(135deg,#28c840,#0a8f2c); color:#fff; padding:2px 8px; border-radius:10px; font-size:0.6rem; font-weight:bold; font-family:'Orbitron', sans-serif; box-shadow:0 2px 4px rgba(0,0,0,0.5);">GRATIS</span>
-                </button>
+                </a>
             </div>
             </div>
         </div>
@@ -1633,6 +1693,39 @@
         document.getElementById('demiurgoComingSoon').addEventListener('click', function(e) { if (e.target === this) closeDemiurgoComingSoon(); });
         document.addEventListener('keydown', function(e) { if (e.key === 'Escape') { closeCatModal(); closeAboutModal(); closeOSPicker(); closeECConstruction(); closeDemiurgoComingSoon(); closeAdDownload(); } });
         document.addEventListener('click', function(e) { if (!document.querySelector('.help-fab').contains(e.target)) document.getElementById('helpMenu').classList.remove('active'); });
+
+        // === Menú Móvil ===
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navMenu = document.getElementById('navMenu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            const icon = mobileMenuBtn.querySelector('i');
+            if (navMenu.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        // Cerrar menú al hacer click en un enlace o fuera de él
+        document.querySelectorAll('#navMenu a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                mobileMenuBtn.querySelector('i').classList.remove('fa-times');
+                mobileMenuBtn.querySelector('i').classList.add('fa-bars');
+            });
+        });
+        
+        document.addEventListener('click', function(e) {
+            if (!navMenu.contains(e.target) && !mobileMenuBtn.contains(e.target) && navMenu.classList.contains('active')) {
+                navMenu.classList.remove('active');
+                mobileMenuBtn.querySelector('i').classList.remove('fa-times');
+                mobileMenuBtn.querySelector('i').classList.add('fa-bars');
+            }
+        });
 
         // OS Picker for PC Software
         const pcLinks = {
