@@ -629,6 +629,10 @@
             overflow: hidden;
             box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 212, 255, 0.1);
             animation: modalIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            max-height: 85vh;
         }
         @keyframes modalIn {
             0% { opacity: 0; transform: scale(0.85) translateY(40px); filter: blur(8px); }
@@ -654,6 +658,7 @@
         }
         .game-modal-overlay.closing {
             animation: overlayOut 0.3s ease forwards;
+            pointer-events: none;
         }
         .game-modal-overlay.closing .game-modal,
         .game-modal-overlay.closing .about-modal,
@@ -667,6 +672,7 @@
         }
         .about-modal-overlay.closing {
             animation: overlayOut 0.3s ease forwards;
+            pointer-events: none;
         }
         .about-modal-overlay.closing .about-modal {
             animation: modalOut 0.3s ease forwards;
@@ -678,6 +684,9 @@
             padding: 14px 20px;
             background: #1a1a24;
             border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+            cursor: move;
+            user-select: none;
+            flex-shrink: 0;
         }
         .about-dots {
             display: flex;
@@ -693,6 +702,7 @@
         .about-dot-red { background: #ff5f57; }
         .about-dot-yellow { background: #ffbd2e; }
         .about-dot-green { background: #28c840; }
+        .about-dot-green.maximized { background: #f0ad4e; box-shadow: 0 0 8px rgba(240,173,78,0.6); }
         .about-modal-title {
             font-family: 'Orbitron', sans-serif;
             font-size: 0.85rem;
@@ -702,6 +712,9 @@
         .about-modal-body {
             padding: 40px;
             text-align: center;
+            overflow-y: auto;
+            flex: 1;
+            min-height: 0;
         }
         .about-logo-big {
             width: 80px; height: 80px;
@@ -784,9 +797,13 @@
             box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 212, 255, 0.1);
             animation: modalIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
             position: relative;
+            display: flex;
+            flex-direction: column;
+            max-height: 90vh;
         }
         .game-modal-body {
-            max-height: 70vh;
+            flex: 1;
+            min-height: 0;
             overflow-y: auto;
         }
         .game-modal-body::-webkit-scrollbar { width: 6px; }
@@ -797,18 +814,37 @@
         .modal-resize-handle {
             position: absolute;
             bottom: 0; right: 0;
-            width: 18px; height: 18px;
+            width: 28px; height: 28px;
             cursor: nwse-resize;
             z-index: 10;
+            opacity: 0.5;
+            transition: opacity 0.3s, transform 0.3s;
+        }
+        .modal-resize-handle:hover,
+        .modal-resize-handle:active {
+            opacity: 1;
+            transform: scale(1.15);
         }
         .modal-resize-handle::before {
             content: '';
             position: absolute;
-            bottom: 5px; right: 5px;
-            width: 8px; height: 8px;
-            border-right: 2px solid rgba(0,212,255,0.3);
-            border-bottom: 2px solid rgba(0,212,255,0.3);
+            bottom: 4px; right: 4px;
+            width: 14px; height: 14px;
+            border-right: 3px solid var(--primary);
+            border-bottom: 3px solid var(--primary);
+            box-shadow: 0 0 8px rgba(0,212,255,0.5);
+            border-radius: 1px;
         }
+        .modal-resize-handle::after {
+            content: '⟋';
+            position: absolute;
+            bottom: 2px; right: 2px;
+            font-size: 12px;
+            color: var(--primary);
+            font-weight: 700;
+            opacity: 0.6;
+        }
+
         .game-modal-titlebar {
             cursor: move;
             user-select: none;
@@ -818,6 +854,7 @@
             padding: 14px 20px;
             background: #1a1a24;
             border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+            flex-shrink: 0;
         }
         .game-modal-dots { display: flex; gap: 8px; }
         .gm-dot {
@@ -830,6 +867,7 @@
         .gm-dot-red { background: #ff5f57; }
         .gm-dot-yellow { background: #ffbd2e; }
         .gm-dot-green { background: #28c840; }
+        .gm-dot-green.maximized { background: #f0ad4e; box-shadow: 0 0 8px rgba(240,173,78,0.6); }
         .game-modal-title {
             font-family: 'Orbitron', sans-serif;
             font-size: 0.85rem;
@@ -909,6 +947,21 @@
             .game-modal-hero { margin: 0 -20px 20px; }
             .game-modal-features { grid-template-columns: 1fr; }
             .game-modal-heading { font-size: 1.5rem; }
+            .game-modal, .about-modal {
+                width: 95% !important;
+                max-width: 95% !important;
+            }
+            .modal-resize-handle {
+                width: 36px !important;
+                height: 36px !important;
+            }
+            .game-modal-overlay {
+                padding: 20px 10px;
+                align-items: center;
+            }
+            .about-modal-overlay {
+                padding: 20px 10px;
+            }
         }
 
         /* OS/Platform Picker Popup */
@@ -1555,6 +1608,7 @@
         <div class="card" style="cursor:default;"><span class="badge" style="background:linear-gradient(135deg,#28c840,#0a8f2c);">GRATIS</span><div class="card-icon"><i class="fas fa-closed-captioning"></i></div><h3>CapCut (IA Video)</h3><p>Editor de video con IA: subtítulos automáticos y voz IA.</p><a href="https://www.capcut.com/" class="card-button">VISITAR</a></div>
         <div class="card" style="cursor:default;"><span class="badge" style="background:linear-gradient(135deg,#28c840,#0a8f2c);">GRATIS</span><div class="card-icon"><i class="fas fa-headphones-alt"></i></div><h3>Suno AI (Free)</h3><p>Genera 5 canciones diarias gratis con letra, voz y música.</p><a href="https://suno.com/" class="card-button">VISITAR</a></div>
         <div class="card" style="cursor:default;"><span class="badge" style="background:linear-gradient(135deg,#28c840,#0a8f2c);">GRATIS</span><div class="card-icon"><i class="fas fa-user-circle"></i></div><h3>Microsoft Copilot</h3><p>IA gratuita con GPT-4, DALL-E y búsqueda integrada.</p><a href="https://copilot.microsoft.com/" class="card-button">VISITAR</a></div>
+        <div class="card" style="cursor:default;"><span class="badge" style="background:linear-gradient(135deg,#28c840,#0a8f2c);">GRATIS</span><div class="card-icon"><i class="fas fa-terminal" style="color:#00d4ff;"></i></div><h3>OpenCode AI</h3><p>Asistente de IA para programación desde la terminal. Open source, gratuito y potente.</p><a href="https://opencode.ai" class="card-button">DESCARGAR</a></div>
     </div>
     <h3 style="font-family:'Orbitron',sans-serif; color:#FF9800; text-align:center; font-size:1.2rem; margin-bottom:25px;"><i class="fas fa-server" style="margin-right:8px;"></i>IA LOCAL — EJECUTA EN TU PC</h3>
     <div class="grid" style="max-width:100%;">
@@ -1661,27 +1715,66 @@
         document.querySelectorAll('a[href^="#"]').forEach(a => { a.addEventListener('click', function(e) { e.preventDefault(); const t = document.querySelector(this.getAttribute('href')); if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }); });
         window.addEventListener('scroll', () => { document.querySelector('header').style.background = window.pageYOffset > 100 ? 'rgba(5,5,5,0.98)' : 'rgba(5,5,5,0.9)'; });
 
-        function openCatModal(id) { const m = document.getElementById('modal-'+id); if (m) { m.classList.add('active'); document.body.style.overflow = 'hidden'; } }
+        function openCatModal(id) {
+            const m = document.getElementById('modal-'+id);
+            if (m) {
+                m.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                requestAnimationFrame(() => {
+                    const modal = m.querySelector('.game-modal');
+                    if (modal && modal.dataset.maximized !== 'true') toggleMaximizeModal(modal);
+                });
+            }
+        }
         function closeCatModal() {
             document.querySelectorAll('.game-modal-overlay.active').forEach(m => {
-                // Detiene la reproducción del video recargando el iframe
                 m.querySelectorAll('iframe').forEach(iframe => iframe.src = iframe.src);
                 m.classList.add('closing');
-                setTimeout(() => { m.classList.remove('active', 'closing'); }, 300);
+                const done = () => { m.classList.remove('active', 'closing'); m.removeEventListener('animationend', done); };
+                m.addEventListener('animationend', done);
+                setTimeout(done, 500);
             });
             document.body.style.overflow = '';
         }
-        document.querySelectorAll('.game-modal-overlay').forEach(o => { o.addEventListener('click', function(e) { if (e.target === this) closeCatModal(); }); });
+        document.querySelectorAll('.game-modal-overlay').forEach(o => { o.addEventListener('click', function(e) { if (e.target === this && !modalInteraction) closeCatModal(); }); });
 
         function toggleHelpMenu() { document.getElementById('helpMenu').classList.toggle('active'); }
-        function openAboutModal() { document.getElementById('helpMenu').classList.remove('active'); document.getElementById('aboutModal').classList.add('active'); document.body.style.overflow = 'hidden'; }
+        function openAboutModal() {
+            document.getElementById('helpMenu').classList.remove('active');
+            const m = document.getElementById('aboutModal');
+            m.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            requestAnimationFrame(() => {
+                const modal = m.querySelector('.about-modal');
+                if (modal && modal.dataset.maximized !== 'true') toggleMaximizeModal(modal);
+            });
+        }
         function closeAboutModal() {
             const m = document.getElementById('aboutModal');
+            onPointerEnd();
             m.classList.add('closing');
-            setTimeout(() => { m.classList.remove('active', 'closing'); }, 300);
-            document.body.style.overflow = '';
+            const done = () => {
+                m.classList.remove('active', 'closing');
+                m.removeEventListener('animationend', done);
+                const modal = m.querySelector('.about-modal');
+                if (modal) {
+                    modal.style.transition = '';
+                    modal.style.position = '';
+                    modal.style.left = '';
+                    modal.style.top = '';
+                    modal.style.width = '';
+                    modal.style.height = '';
+                    modal.style.maxWidth = '';
+                    modal.style.margin = '';
+                    modal.dataset.maximized = 'false';
+                    modal.querySelectorAll('.gm-dot-green, .about-dot-green').forEach(d => d.classList.remove('maximized'));
+                }
+                document.body.style.overflow = '';
+            };
+            m.addEventListener('animationend', done);
+            setTimeout(done, 500);
         }
-        document.getElementById('aboutModal').addEventListener('click', function(e) { if (e.target === this) closeAboutModal(); });
+        document.getElementById('aboutModal').addEventListener('click', function(e) { if (e.target === this && !modalInteraction) closeAboutModal(); });
         
         // Demiurgo Coming Soon
         function showDemiurgoComingSoon() { document.getElementById('demiurgoComingSoon').classList.add('active'); }
@@ -1975,79 +2068,155 @@
             if (e.key === 'Escape') { searchDropdown.classList.remove('open'); this.value = ''; }
         });
         // ===== FIN BUSCADOR =====
-        // === WINDOW DRAG & RESIZE ===
-        document.querySelectorAll('.game-modal').forEach(modal => {
-            // Add resize handle
-            const handle = document.createElement('div');
-            handle.className = 'modal-resize-handle';
-            modal.appendChild(handle);
+        // === WINDOW DRAG & RESIZE (mouse + touch) ===
+        let activeModal = null, dragMode = null, dragData = {};
 
-            // DRAG MOVE from titlebar
-            const titlebar = modal.querySelector('.game-modal-titlebar');
-            if (titlebar) {
-                let isDragging = false, startX, startY, origLeft, origTop;
-                titlebar.addEventListener('mousedown', function(e) {
-                    if (e.target.classList.contains('gm-dot')) return;
-                    isDragging = true;
-                    const rect = modal.getBoundingClientRect();
-                    // Switch to absolute positioning on first drag
-                    if (!modal.style.position || modal.style.position !== 'absolute') {
-                        modal.style.position = 'absolute';
-                        modal.style.left = rect.left + 'px';
-                        modal.style.top = rect.top + window.scrollY + 'px';
-                        modal.style.margin = '0';
-                    }
-                    startX = e.clientX;
-                    startY = e.clientY;
-                    origLeft = parseInt(modal.style.left);
-                    origTop = parseInt(modal.style.top);
-                    e.preventDefault();
-                });
-                document.addEventListener('mousemove', function(e) {
-                    if (!isDragging) return;
-                    modal.style.left = (origLeft + e.clientX - startX) + 'px';
-                    modal.style.top = (origTop + e.clientY - startY) + 'px';
-                });
-                document.addEventListener('mouseup', function() { isDragging = false; });
+        function getPos(e) {
+            if (e.clientX != null) return { x: e.clientX, y: e.clientY };
+            if (e.touches && e.touches[0]) return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+            return null;
+        }
+
+        let modalInteraction = false;
+
+        function onDragStart(e, modal, titlebar) {
+            if (e.target.classList.contains('gm-dot') || e.target.classList.contains('about-dot')) return;
+            modal.style.transition = 'none';
+            if (modal.dataset.maximized === 'true') toggleMaximizeModal(modal);
+            const rect = modal.getBoundingClientRect();
+            if (!modal.style.position || modal.style.position !== 'absolute') {
+                modal.style.position = 'absolute';
+                modal.style.left = rect.left + 'px';
+                modal.style.top = (rect.top + window.scrollY) + 'px';
+                modal.style.margin = '0';
             }
+            const p = getPos(e);
+            if (!p) return;
+            modalInteraction = true;
+            activeModal = modal; dragMode = 'drag';
+            dragData = { ox: p.x, oy: p.y, l: parseInt(modal.style.left), t: parseInt(modal.style.top) };
+            e.preventDefault();
+        }
 
-            // DRAG RESIZE from handle
-            let isResizing = false, rStartX, rStartY, rOrigW, rOrigH;
-            handle.addEventListener('mousedown', function(e) {
-                isResizing = true;
-                rStartX = e.clientX;
-                rStartY = e.clientY;
-                rOrigW = modal.offsetWidth;
-                rOrigH = modal.offsetHeight;
+        function onResizeStart(e, modal) {
+            const p = getPos(e);
+            if (!p) return;
+            modal.style.transition = 'none';
+            modalInteraction = true;
+            activeModal = modal; dragMode = 'resize';
+            modal.style.maxWidth = 'none';
+            dragData = { ox: p.x, oy: p.y, w: modal.offsetWidth, h: modal.offsetHeight };
+            e.preventDefault(); e.stopPropagation();
+        }
+
+        function onPointerMove(e) {
+            if (!activeModal || !dragMode) return;
+            const p = getPos(e);
+            if (!p) return;
+            if (dragMode === 'drag') {
+                activeModal.style.left = (dragData.l + p.x - dragData.ox) + 'px';
+                activeModal.style.top = (dragData.t + p.y - dragData.oy) + 'px';
+            } else if (dragMode === 'resize') {
+                activeModal.style.width = Math.max(350, dragData.w + p.x - dragData.ox) + 'px';
+                activeModal.style.height = Math.max(250, dragData.h + p.y - dragData.oy) + 'px';
+            }
+        }
+
+        function onPointerEnd() {
+            activeModal = null; dragMode = null;
+            setTimeout(() => { modalInteraction = false; }, 150);
+        }
+
+        document.querySelectorAll('.game-modal, .about-modal').forEach(modal => {
+            if (!modal.querySelector('.modal-resize-handle')) {
+                const h = document.createElement('div');
+                h.className = 'modal-resize-handle';
+                modal.appendChild(h);
+            }
+            const titlebar = modal.querySelector('.game-modal-titlebar') || modal.querySelector('.about-modal-titlebar');
+            if (titlebar) {
+                titlebar.addEventListener('mousedown', e => onDragStart(e, modal, titlebar));
+                titlebar.addEventListener('touchstart', e => onDragStart(e, modal, titlebar), { passive: false });
+            }
+            const handle = modal.querySelector('.modal-resize-handle');
+            handle.addEventListener('mousedown', e => onResizeStart(e, modal));
+            handle.addEventListener('touchstart', e => onResizeStart(e, modal), { passive: false });
+        });
+
+        document.addEventListener('mousemove', onPointerMove);
+        document.addEventListener('mouseup', onPointerEnd);
+        document.addEventListener('touchmove', onPointerMove, { passive: false });
+        document.addEventListener('touchend', onPointerEnd);
+
+        // === MAXIMIZE / RESTORE (green dot) ===
+        function toggleMaximizeModal(modal) {
+            const isMax = modal.dataset.maximized === 'true';
+            modal.style.transition = 'left 0.3s ease, top 0.3s ease, width 0.3s ease, height 0.3s ease';
+            if (!isMax) {
+                const rect = modal.getBoundingClientRect();
+                modal.dataset.restorePosition = modal.style.position || '';
+                modal.dataset.restoreLeft = modal.style.left || '';
+                modal.dataset.restoreTop = modal.style.top || '';
+                modal.dataset.restoreWidth = modal.style.width || '';
+                modal.dataset.restoreHeight = modal.style.height || '';
+                modal.dataset.restoreMaxWidth = modal.style.maxWidth || '';
+                modal.dataset.restoreMargin = modal.style.margin || '';
+                if (!modal.style.position || modal.style.position === '' || modal.style.position === 'static') {
+                    modal.dataset.restoreTop = rect.top + 'px';
+                    modal.dataset.restoreLeft = rect.left + 'px';
+                }
+                modal.style.position = 'fixed';
+                modal.style.left = '3vw';
+                modal.style.top = '3vh';
+                modal.style.width = '94vw';
+                modal.style.height = '94vh';
                 modal.style.maxWidth = 'none';
-                e.preventDefault();
+                modal.style.margin = '0';
+                modal.dataset.maximized = 'true';
+                modal.querySelectorAll('.gm-dot-green, .about-dot-green').forEach(d => d.classList.add('maximized'));
+            } else {
+                modal.style.position = modal.dataset.restorePosition || '';
+                modal.style.left = modal.dataset.restoreLeft || '';
+                modal.style.top = modal.dataset.restoreTop || '';
+                modal.style.width = modal.dataset.restoreWidth || '';
+                modal.style.height = modal.dataset.restoreHeight || '';
+                modal.style.maxWidth = modal.dataset.restoreMaxWidth || '';
+                modal.style.margin = modal.dataset.restoreMargin || '';
+                modal.dataset.maximized = 'false';
+                modal.querySelectorAll('.gm-dot-green, .about-dot-green').forEach(d => d.classList.remove('maximized'));
+            }
+            setTimeout(() => { if (modal.style.transition) modal.style.transition = ''; }, 350);
+        }
+
+        document.querySelectorAll('.gm-dot-green, .about-dot-green').forEach(dot => {
+            dot.addEventListener('click', function(e) {
                 e.stopPropagation();
+                const modal = this.closest('.game-modal, .about-modal');
+                if (modal) toggleMaximizeModal(modal);
             });
-            document.addEventListener('mousemove', function(e) {
-                if (!isResizing) return;
-                const newW = Math.max(350, rOrigW + e.clientX - rStartX);
-                const newH = Math.max(250, rOrigH + e.clientY - rStartY);
-                modal.style.width = newW + 'px';
-                modal.style.height = newH + 'px';
-            });
-            document.addEventListener('mouseup', function() { isResizing = false; });
         });
 
         // Reset modal position/size when closing
+        function resetModalStyles() {
+            document.querySelectorAll('.game-modal, .about-modal').forEach(m => {
+                m.style.transition = '';
+                m.style.position = '';
+                m.style.left = '';
+                m.style.top = '';
+                m.style.width = '';
+                m.style.height = '';
+                m.style.maxWidth = '';
+                m.style.margin = '';
+                m.dataset.maximized = 'false';
+                m.querySelectorAll('.gm-dot-green, .about-dot-green').forEach(d => d.classList.remove('maximized'));
+            });
+        }
+
         const origCloseCatModal = closeCatModal;
         closeCatModal = function() {
+            onPointerEnd();
             origCloseCatModal();
-            setTimeout(() => {
-                document.querySelectorAll('.game-modal').forEach(m => {
-                    m.style.position = '';
-                    m.style.left = '';
-                    m.style.top = '';
-                    m.style.width = '';
-                    m.style.height = '';
-                    m.style.maxWidth = '';
-                    m.style.margin = '';
-                });
-            }, 350);
+            setTimeout(resetModalStyles, 350);
         };
     </script>
 </body>
