@@ -345,6 +345,39 @@
             outline: 3px solid #fff;
             outline-offset: 4px;
         }
+        .hero-ads {
+            display: grid;
+            grid-template-columns: 1.52fr 1fr;
+            gap: 20px;
+            width: 100%;
+            max-width: 1200px;
+            margin: 28px auto 0;
+            padding: 0 5%;
+        }
+        .hero-ad {
+            display: block;
+            overflow: hidden;
+            border: 1px solid rgba(102, 192, 240, 0.2);
+            border-radius: 8px;
+            background: #182432;
+            box-shadow: 0 8px 26px rgba(0,0,0,0.3);
+            line-height: 0;
+            transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+        .hero-ad:hover {
+            transform: translateY(-3px);
+            border-color: rgba(102, 192, 240, 0.55);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.42);
+        }
+        .hero-ad:focus-visible {
+            outline: 3px solid var(--primary);
+            outline-offset: 4px;
+        }
+        .hero-ad img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
         @media (max-width: 768px) {
             .hero-video {
                 height: min(72vh, 560px);
@@ -356,6 +389,10 @@
             .hero-video-title {
                 font-size: clamp(1.65rem, 10vw, 3.2rem);
                 letter-spacing: 2px;
+            }
+            .hero-ads {
+                gap: 14px;
+                padding: 0 3%;
             }
         }
         @media (max-width: 480px) {
@@ -376,6 +413,10 @@
                 bottom: 18px;
                 padding: 10px 14px;
                 font-size: 0.64rem;
+            }
+            .hero-ads {
+                gap: 10px;
+                padding: 0 2%;
             }
         }
 
@@ -1400,6 +1441,15 @@
             <i class="fas fa-volume-mute" aria-hidden="true"></i>
             <span>ACTIVAR SONIDO</span>
         </button>
+    </section>
+
+    <section class="hero-ads" aria-label="Publicidad de Estalingrado Corp">
+        <a class="hero-ad" href="https://www.google.com/search?q=estalingrado+corp&sxsrf=APpeQnvt2euLgCoZAZCT6t5Emg5b_YrPYw%3A1792869796567" target="_blank" rel="noopener noreferrer">
+            <img src="https://static.wixstatic.com/media/9dbdc2_d7f4662631574a52ada08bdf9d4cfcb8~mv2.gif" alt="Publicidad de Estalingrado Corp 1" loading="lazy">
+        </a>
+        <a class="hero-ad" href="https://www.google.com/search?q=estalingrado+corp&sxsrf=APpeQnvt2euLgCoZAZCT6t5Emg5b_YrPYw%3A1792869796567" target="_blank" rel="noopener noreferrer">
+            <img src="https://static.wixstatic.com/media/9dbdc2_23a9d1da1ade40809dc9afbaee74d186~mv2.gif" alt="Publicidad de Estalingrado Corp 2" loading="lazy">
+        </a>
     </section>
 
     <section class="categories" id="software">
