@@ -299,6 +299,12 @@
             line-height: 1.6;
             text-shadow: 0 2px 12px rgba(0,0,0,0.72);
         }
+        .hero-video-actions {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
         .hero-video-button {
             display: inline-flex;
             align-items: center;
@@ -306,6 +312,14 @@
             padding: 15px 34px;
             border-radius: 6px;
             box-shadow: 0 8px 28px rgba(102, 192, 240, 0.38);
+        }
+        .hero-video-button-official {
+            background: linear-gradient(135deg, #fcee0a, #f15a24);
+            color: #11151b;
+            box-shadow: 0 8px 28px rgba(252, 238, 33, 0.28);
+        }
+        .hero-video-button-official:hover {
+            box-shadow: 0 12px 34px rgba(252, 238, 33, 0.42);
         }
         .hero-video-button:hover {
             box-shadow: 0 12px 34px rgba(102, 192, 240, 0.5);
@@ -1432,10 +1446,16 @@
             <span class="hero-video-kicker">EC GAMES presenta</span>
             <h1 class="hero-video-title">CYBERPUNK 2077</h1>
             <p class="hero-video-description">Descubre Cyberpunk 2077 en la tienda de EC Games.</p>
-            <a class="cta-button hero-video-button" href="https://nicolabm227-svg.github.io/NOXIS/" target="_blank" rel="noopener noreferrer">
-                <i class="fas fa-store" aria-hidden="true"></i>
-                IR A LA TIENDA
-            </a>
+            <div class="hero-video-actions">
+                <a class="cta-button hero-video-button" href="https://nicolabm227-svg.github.io/NOXIS/" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-store" aria-hidden="true"></i>
+                    IR A LA TIENDA
+                </a>
+                <a class="cta-button hero-video-button hero-video-button-official" href="https://www.cyberpunk.net/us/es/" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-cart-shopping" aria-hidden="true"></i>
+                    COMPRAR OFICIAL
+                </a>
+            </div>
         </div>
         <button class="hero-video-sound" id="heroVideoSound" type="button" aria-pressed="false" aria-label="Activar sonido del video">
             <i class="fas fa-volume-mute" aria-hidden="true"></i>
