@@ -242,6 +242,7 @@
             inset: 0;
             z-index: 1;
             background: linear-gradient(90deg, rgba(5,10,16,0.94) 0%, rgba(8,15,23,0.72) 45%, rgba(8,15,23,0.2) 100%), linear-gradient(0deg, rgba(5,10,16,0.72) 0%, transparent 45%);
+            transition: opacity 0.45s ease;
         }
         .hero-video-content {
             position: relative;
@@ -252,6 +253,17 @@
             align-items: flex-start;
             justify-content: center;
             padding: clamp(40px, 7vw, 96px) 7vw;
+            transform-origin: left center;
+            transition: opacity 0.45s ease, filter 0.45s ease, transform 0.45s ease;
+        }
+        .hero-video.video-active::before {
+            opacity: 0.24;
+        }
+        .hero-video.video-active .hero-video-content {
+            opacity: 0.14;
+            filter: blur(14px);
+            transform: scale(1.02);
+            pointer-events: none;
         }
         .hero-video-kicker {
             display: inline-block;
@@ -269,13 +281,14 @@
             backdrop-filter: blur(8px);
         }
         .hero-video-title {
+            max-width: 100%;
             margin: 0;
             color: #fff;
             font-family: 'Orbitron', sans-serif;
-            font-size: clamp(3.2rem, 8vw, 7rem);
+            font-size: clamp(2.8rem, 6.2vw, 6.4rem);
             font-weight: 900;
             line-height: 0.95;
-            letter-spacing: 4px;
+            letter-spacing: 3px;
             text-shadow: 0 4px 28px rgba(0,0,0,0.72);
         }
         .hero-video-description {
@@ -301,6 +314,37 @@
             outline: 3px solid #fff;
             outline-offset: 4px;
         }
+        .hero-video-sound {
+            position: absolute;
+            right: 28px;
+            bottom: 28px;
+            z-index: 4;
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            padding: 12px 18px;
+            background: rgba(5,10,16,0.76);
+            border: 1px solid rgba(255,255,255,0.24);
+            border-radius: 5px;
+            color: #fff;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+        }
+        .hero-video-sound:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+        .hero-video-sound:focus-visible {
+            outline: 3px solid #fff;
+            outline-offset: 4px;
+        }
         @media (max-width: 768px) {
             .hero-video {
                 height: min(72vh, 560px);
@@ -310,7 +354,8 @@
                 padding: 40px 24px;
             }
             .hero-video-title {
-                font-size: clamp(2.7rem, 13vw, 4.5rem);
+                font-size: clamp(1.65rem, 10vw, 3.2rem);
+                letter-spacing: 2px;
             }
         }
         @media (max-width: 480px) {
@@ -325,6 +370,12 @@
             .hero-video-button {
                 width: 100%;
                 justify-content: center;
+            }
+            .hero-video-sound {
+                right: 18px;
+                bottom: 18px;
+                padding: 10px 14px;
+                font-size: 0.64rem;
             }
         }
 
@@ -1328,23 +1379,27 @@
         </nav>
     </header>
 
-    <section class="hero-video" id="inicio" aria-label="Portada de NOXIS">
+    <section class="hero-video" id="inicio" aria-label="Portada de Cyberpunk 2077">
         <iframe
             class="hero-video-frame"
-            src="https://www.youtube.com/embed/VhM3NRu23Sk?autoplay=1&mute=1&loop=1&playlist=VhM3NRu23Sk&controls=0&rel=0&playsinline=1&modestbranding=1"
-            title="Video de presentación de NOXIS"
+            src="https://www.youtube.com/embed/VhM3NRu23Sk?autoplay=1&mute=1&loop=1&playlist=VhM3NRu23Sk&controls=0&rel=0&playsinline=1&modestbranding=1&enablejsapi=1"
+            title="Tráiler de Cyberpunk 2077"
             allow="autoplay; encrypted-media; picture-in-picture"
             allowfullscreen
         ></iframe>
         <div class="hero-video-content">
             <span class="hero-video-kicker">EC GAMES presenta</span>
-            <h1 class="hero-video-title">NOXIS</h1>
-            <p class="hero-video-description">EC Games presenta NOXIS. Pulsa el botón para entrar al juego.</p>
+            <h1 class="hero-video-title">CYBERPUNK 2077</h1>
+            <p class="hero-video-description">Descubre Cyberpunk 2077 en la tienda de EC Games.</p>
             <a class="cta-button hero-video-button" href="https://nicolabm227-svg.github.io/NOXIS/" target="_blank" rel="noopener noreferrer">
-                <i class="fas fa-play" aria-hidden="true"></i>
-                IR AL JUEGO
+                <i class="fas fa-store" aria-hidden="true"></i>
+                IR A LA TIENDA
             </a>
         </div>
+        <button class="hero-video-sound" id="heroVideoSound" type="button" aria-pressed="false" aria-label="Activar sonido del video">
+            <i class="fas fa-volume-mute" aria-hidden="true"></i>
+            <span>ACTIVAR SONIDO</span>
+        </button>
     </section>
 
     <section class="categories" id="software">
@@ -1758,6 +1813,39 @@
 
         const particlesContainer = document.getElementById('particles');
         for (let i = 0; i < 50; i++) { const p = document.createElement('div'); p.className = 'particle'; p.style.left = Math.random()*100+'%'; p.style.animationDelay = Math.random()*15+'s'; p.style.animationDuration = (Math.random()*10+10)+'s'; particlesContainer.appendChild(p); }
+
+        const heroVideo = document.querySelector('.hero-video');
+        const heroVideoFrame = document.querySelector('.hero-video-frame');
+        const heroVideoSound = document.getElementById('heroVideoSound');
+        if (heroVideo && heroVideoFrame && heroVideoSound) {
+            const soundIcon = heroVideoSound.querySelector('i');
+            const soundLabel = heroVideoSound.querySelector('span');
+            const sendPlayerCommand = (func, args = '') => {
+                if (!heroVideoFrame.contentWindow) return;
+                heroVideoFrame.contentWindow.postMessage(JSON.stringify({ event: 'command', func, args }), 'https://www.youtube.com');
+            };
+            heroVideoSound.addEventListener('click', function() {
+                const soundEnabled = heroVideoSound.getAttribute('aria-pressed') !== 'true';
+                if (soundEnabled) {
+                    sendPlayerCommand('setVolume', [100]);
+                    sendPlayerCommand('unMute');
+                    sendPlayerCommand('playVideo');
+                    heroVideo.classList.add('video-active');
+                    heroVideoSound.setAttribute('aria-pressed', 'true');
+                    heroVideoSound.setAttribute('aria-label', 'Silenciar el video');
+                    soundIcon.className = 'fas fa-volume-up';
+                    soundLabel.textContent = 'SILENCIAR VIDEO';
+                } else {
+                    sendPlayerCommand('muteVideo');
+                    sendPlayerCommand('setVolume', [0]);
+                    heroVideo.classList.remove('video-active');
+                    heroVideoSound.setAttribute('aria-pressed', 'false');
+                    heroVideoSound.setAttribute('aria-label', 'Activar sonido del video');
+                    soundIcon.className = 'fas fa-volume-mute';
+                    soundLabel.textContent = 'ACTIVAR SONIDO';
+                }
+            });
+        }
 
         const observer = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
         document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
