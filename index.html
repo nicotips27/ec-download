@@ -217,203 +217,115 @@
             transform: translateY(-3px);
         }
 
-        /* Carousel */
-        .hero-carousel {
+        .hero-video {
             margin-top: 64px;
             width: 100%;
+            height: min(78vh, 720px);
+            min-height: 520px;
             position: relative;
             overflow: hidden;
-            background: #0e1620;
+            isolation: isolate;
+            background: #0e1620 url('https://img.youtube.com/vi/VhM3NRu23Sk/maxresdefault.jpg') center / cover no-repeat;
             box-shadow: 0 8px 32px rgba(0,0,0,0.4);
         }
-        .carousel-slides {
-            position: relative;
-            width: 100%;
-            height: 520px;
-        }
-        .carousel-slide {
+        .hero-video-frame {
             position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            opacity: 0;
-            transform: scale(1.08);
-            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
             pointer-events: none;
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
-        .carousel-slide::before {
+        .hero-video::before {
             content: '';
             position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: linear-gradient(135deg, rgba(27,40,56,0.85) 0%, rgba(15,25,35,0.65) 100%);
-        }
-        .carousel-slide.active {
-            opacity: 1;
-            transform: scale(1);
-            pointer-events: auto;
-        }
-        .carousel-content {
-            position: relative;
+            inset: 0;
             z-index: 1;
-            text-align: center;
-            padding: 60px 40px;
-            max-width: 720px;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease 0.2s, transform 0.6s ease 0.2s;
+            background: linear-gradient(90deg, rgba(5,10,16,0.94) 0%, rgba(8,15,23,0.72) 45%, rgba(8,15,23,0.2) 100%), linear-gradient(0deg, rgba(5,10,16,0.72) 0%, transparent 45%);
         }
-        .carousel-slide.active .carousel-content {
-            opacity: 1;
-            transform: translateY(0);
+        .hero-video-content {
+            position: relative;
+            z-index: 2;
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            padding: clamp(40px, 7vw, 96px) 7vw;
         }
-        .carousel-tag {
+        .hero-video-kicker {
             display: inline-block;
-            padding: 4px 14px;
+            margin-bottom: 18px;
+            padding: 6px 14px;
             background: rgba(102, 192, 240, 0.15);
-            border: 1px solid rgba(102, 192, 240, 0.35);
+            border: 1px solid rgba(102, 192, 240, 0.4);
+            border-radius: 3px;
             color: var(--primary);
             font-family: 'Orbitron', sans-serif;
-            font-size: 0.7rem;
+            font-size: 0.72rem;
             font-weight: 700;
             letter-spacing: 2px;
-            border-radius: 3px;
-            margin-bottom: 24px;
             text-transform: uppercase;
-        }
-        .carousel-icon {
-            width: 88px; height: 88px;
-            background: rgba(102, 192, 240, 0.18);
-            border: 1px solid rgba(102, 192, 240, 0.3);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 38px;
-            color: var(--primary);
-            margin: 0 auto 24px;
             backdrop-filter: blur(8px);
-            box-shadow: 0 8px 32px rgba(102, 192, 240, 0.2);
         }
-        .carousel-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2.8rem;
+        .hero-video-title {
+            margin: 0;
             color: #fff;
-            margin-bottom: 16px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(3.2rem, 8vw, 7rem);
             font-weight: 900;
-            text-shadow: 0 2px 16px rgba(0,0,0,0.5);
+            line-height: 0.95;
+            letter-spacing: 4px;
+            text-shadow: 0 4px 28px rgba(0,0,0,0.72);
         }
-        .carousel-desc {
-            color: #c7d5e0;
-            font-size: 1.1rem;
+        .hero-video-description {
+            max-width: 620px;
+            margin: 22px 0 30px;
+            color: #d2dde6;
+            font-size: clamp(1rem, 1.5vw, 1.2rem);
             line-height: 1.6;
-            margin-bottom: 28px;
-            text-shadow: 0 1px 8px rgba(0,0,0,0.5);
+            text-shadow: 0 2px 12px rgba(0,0,0,0.72);
         }
-        .carousel-btn {
+        .hero-video-button {
             display: inline-flex;
             align-items: center;
-            padding: 14px 36px;
-            background: var(--primary);
-            border: none;
-            color: #fff;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 700;
-            font-size: 0.95rem;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            box-shadow: 0 4px 16px rgba(102, 192, 240, 0.3);
+            gap: 10px;
+            padding: 15px 34px;
+            border-radius: 6px;
+            box-shadow: 0 8px 28px rgba(102, 192, 240, 0.38);
         }
-        .carousel-btn:hover {
-            background: #fff;
-            color: #1b2838;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+        .hero-video-button:hover {
+            box-shadow: 0 12px 34px rgba(102, 192, 240, 0.5);
         }
-        .carousel-dots {
-            position: absolute;
-            bottom: 30px;
-            left: 0; right: 0;
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            z-index: 5;
-        }
-        .carousel-dot {
-            width: 36px;
-            height: 4px;
-            border-radius: 2px;
-            background: rgba(255,255,255,0.25);
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-        .carousel-dot.active {
-            background: rgba(255,255,255,0.15);
-        }
-        .carousel-dot.active::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: var(--primary);
-            border-radius: 2px;
-            animation: dotFill 5s linear;
-        }
-        @keyframes dotFill {
-            from { transform: translateX(-100%); }
-            to { transform: translateX(0%); }
-        }
-        .carousel-dot:hover {
-            background: rgba(255,255,255,0.4);
-        }
-        .carousel-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 52px;
-            height: 52px;
-            border-radius: 50%;
-            background: rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(255,255,255,0.15);
-            color: #fff;
-            cursor: pointer;
-            z-index: 10;
-            opacity: 0;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(8px);
-        }
-        .hero-carousel:hover .carousel-arrow {
-            opacity: 1;
-        }
-        .carousel-prev { left: 24px; }
-        .carousel-next { right: 24px; }
-        .carousel-arrow:hover {
-            background: var(--primary);
-            border-color: var(--primary);
-            transform: translateY(-50%) scale(1.08);
+        .hero-video-button:focus-visible {
+            outline: 3px solid #fff;
+            outline-offset: 4px;
         }
         @media (max-width: 768px) {
-            .carousel-slides { height: 380px; }
-            .carousel-content { padding: 30px 20px; }
-            .carousel-title { font-size: 1.7rem; }
-            .carousel-desc { font-size: 0.95rem; }
-            .carousel-icon { width: 64px; height: 64px; font-size: 26px; }
-            .carousel-arrow { width: 40px; height: 40px; opacity: 0.6; }
-            .carousel-prev { left: 12px; }
-            .carousel-next { right: 12px; }
+            .hero-video {
+                height: min(72vh, 560px);
+                min-height: 420px;
+            }
+            .hero-video-content {
+                padding: 40px 24px;
+            }
+            .hero-video-title {
+                font-size: clamp(2.7rem, 13vw, 4.5rem);
+            }
         }
         @media (max-width: 480px) {
-            .carousel-slides { height: 320px; }
-            .carousel-title { font-size: 1.4rem; }
+            .hero-video {
+                height: 70vh;
+                min-height: 360px;
+            }
+            .hero-video-description {
+                margin: 18px 0 24px;
+                font-size: 0.95rem;
+            }
+            .hero-video-button {
+                width: 100%;
+                justify-content: center;
+            }
         }
 
         .categories {
@@ -1409,78 +1321,29 @@
 
         <nav>
             <ul id="navMenu">
-                <li><a href="https://nicotips27.github.io/Estalingrado-corp-Buscador-/" target="_self" style="color: #66c0f0; font-weight: 700;"><i class="fas fa-building" style="margin-right: 5px;"></i>Estalingrado Corp</a></li>
                 <li><a href="#inicio">Inicio</a></li>
-                <li><a href="#ec-games">EC Games</a></li>
+                <li><a href="javascript:void(0)" onclick="openCatModal('demiurgo')">EC Games</a></li>
                 <li><a href="#software">Categorías</a></li>
             </ul>
         </nav>
     </header>
 
-    <div class="hero-carousel">
-        <button class="carousel-arrow carousel-prev" aria-label="Anterior"><i class="fas fa-chevron-left"></i></button>
-        <button class="carousel-arrow carousel-next" aria-label="Siguiente"><i class="fas fa-chevron-right"></i></button>
-        <div class="carousel-slides">
-            <div class="carousel-slide active" style="background-image: url('https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=1600&q=80');">
-                <div class="carousel-content">
-                    <div class="carousel-tag">EC GAMES</div>
-                    <div class="carousel-icon"><i class="fas fa-gamepad"></i></div>
-                    <h2 class="carousel-title">Juegos</h2>
-                    <p class="carousel-desc">Descarga los mejores juegos clásicos, modernos y 100% Open Source.</p>
-                    <button class="carousel-btn" onclick="openCatModal('juegos-unificados')"><i class="fas fa-arrow-right" style="margin-right:6px;"></i>EXPLORAR</button>
-                </div>
-            </div>
-            <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=1600&q=80');">
-                <div class="carousel-content">
-                    <div class="carousel-tag">EC SOFTWARE</div>
-                    <div class="carousel-icon"><i class="fas fa-laptop-code"></i></div>
-                    <h2 class="carousel-title">Programas</h2>
-                    <p class="carousel-desc">Software indispensable y alternativas Open Source para Windows y Linux.</p>
-                    <button class="carousel-btn" onclick="openCatModal('programas-unificados')"><i class="fas fa-arrow-right" style="margin-right:6px;"></i>EXPLORAR</button>
-                </div>
-            </div>
-            <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1600&q=80');">
-                <div class="carousel-content">
-                    <div class="carousel-tag">EC AI</div>
-                    <div class="carousel-icon"><i class="fas fa-brain"></i></div>
-                    <h2 class="carousel-title">Inteligencia Artificial</h2>
-                    <p class="carousel-desc">Las mejores IA del mercado: gratuitas y premium. Texto, imagen, voz y código.</p>
-                    <button class="carousel-btn" onclick="openCatModal('ia')"><i class="fas fa-arrow-right" style="margin-right:6px;"></i>EXPLORAR</button>
-                </div>
-            </div>
-        </div>
-        <div class="carousel-dots">
-            <span class="carousel-dot active" data-slide="0"></span>
-            <span class="carousel-dot" data-slide="1"></span>
-            <span class="carousel-dot" data-slide="2"></span>
-        </div>
-    </div>
-
-    <section class="hero" id="inicio">
-        <h1>SOFTWARE LAB</h1>
-        <p>Descarga Sistemas Operativos Windows, Linux y más. Tu centro de descargas definitivo para PC y móvil.</p>
-        <a href="#software" class="cta-button">EXPLORAR AHORA</a>
-        <div class="platforms">
-            <div class="platform-icon" title="Windows"><i class="fab fa-windows"></i></div>
-            <div class="platform-icon" title="Apple"><i class="fab fa-apple"></i></div>
-            <div class="platform-icon" title="Android"><i class="fab fa-android"></i></div>
-            <div class="platform-icon" title="Linux"><i class="fab fa-linux"></i></div>
-        </div>
-    </section>
-
-    <section class="categories" id="ec-games">
-        <h2 class="section-title">EC GAMES</h2>
-        <p style="text-align:center; color:#8f98a0; max-width:700px; margin:-30px auto 50px; font-size:1.1rem; line-height:1.6;">Juegos online desarrollados por Estalingrado Corp.</p>
-        <div class="grid">
-            <div class="card fade-in" onclick="openCatModal('demiurgo')" style="cursor:pointer;">
-                <span class="badge" style="background:linear-gradient(135deg, #66c0f0, #1a9fff); color:#fff;">OFICIAL</span>
-                <div class="card-icon" style="padding:0; overflow:hidden; border-radius:16px; border: 1px solid rgba(102,192,240,0.3);">
-                    <img src="https://64.media.tumblr.com/c56b33934f4729ba1e13c47eadeb46db/ba570ecc1897f8f8-d2/s540x810/bfc6276a163bc1c82e6350a51dd139240421bbb6.jpg" alt="Demiurgo Box" style="width:100%; height:100%; object-fit:cover;">
-                </div>
-                <h3>Demiurgo Box</h3>
-                <p>Simulador de dios en HTML5. Guía civilizaciones desde la edad de piedra hasta la gloria imperial. ¡Juega online!</p>
-                <button class="card-button" onclick="event.stopPropagation(); openCatModal('demiurgo')">VER MÁS</button>
-            </div>
+    <section class="hero-video" id="inicio" aria-label="Portada de NOXIS">
+        <iframe
+            class="hero-video-frame"
+            src="https://www.youtube.com/embed/VhM3NRu23Sk?autoplay=1&mute=1&loop=1&playlist=VhM3NRu23Sk&controls=0&rel=0&playsinline=1&modestbranding=1"
+            title="Video de presentación de NOXIS"
+            allow="autoplay; encrypted-media; picture-in-picture"
+            allowfullscreen
+        ></iframe>
+        <div class="hero-video-content">
+            <span class="hero-video-kicker">EC GAMES presenta</span>
+            <h1 class="hero-video-title">NOXIS</h1>
+            <p class="hero-video-description">EC Games presenta NOXIS. Pulsa el botón para entrar al juego.</p>
+            <a class="cta-button hero-video-button" href="https://nicolabm227-svg.github.io/NOXIS/" target="_blank" rel="noopener noreferrer">
+                <i class="fas fa-play" aria-hidden="true"></i>
+                IR AL JUEGO
+            </a>
         </div>
     </section>
 
@@ -1740,6 +1603,7 @@
             <div class="card" style="cursor:default;"><span class="license-tag license-free">GRATUITO</span><div class="card-icon"><i class="fas fa-volume-up" style="color:#00d4ff;"></i></div><h3>Realtek Audio</h3><p>Controladores de audio de alta definición para la mayoría de las placas base de PC.</p><button class="card-button" onclick="showOSPicker('realtek')">OBTENER</button></div>
             <div class="card" style="cursor:default;"><span class="license-tag license-free">GRATUITO</span><div class="card-icon"><i class="fas fa-mouse" style="color:#00d4ff;"></i></div><h3>Logitech G HUB</h3><p>Software para configurar mouses, teclados y auriculares de la línea Logitech G.</p><button class="card-button" onclick="showOSPicker('ghub')">OBTENER</button></div>
             <div class="card" style="cursor:default;"><span class="license-tag license-free">OPEN SOURCE</span><div class="card-icon"><i class="fas fa-tools" style="color:#FF9800;"></i></div><h3>Snappy Driver Installer</h3><p>Herramienta portable de código abierto para instalar y actualizar drivers offline.</p><button class="card-button" onclick="showOSPicker('sdi')">OBTENER</button></div>
+            <div class="card" style="cursor:default;"><span class="license-tag license-free">GRATUITO</span><div class="card-icon"><i class="fas fa-microchip" style="color:#3DA35D;"></i></div><h3>3DP Chip</h3><p>Detecta tu hardware y descarga automáticamente los drivers más recientes para todos los componentes del PC.</p><button class="card-button" onclick="showOSPicker('3dchip')">OBTENER</button></div>
         </div>
     </div></div></div>
 
@@ -1895,40 +1759,6 @@
         const particlesContainer = document.getElementById('particles');
         for (let i = 0; i < 50; i++) { const p = document.createElement('div'); p.className = 'particle'; p.style.left = Math.random()*100+'%'; p.style.animationDelay = Math.random()*15+'s'; p.style.animationDuration = (Math.random()*10+10)+'s'; particlesContainer.appendChild(p); }
 
-        // Carousel
-        (function() {
-            const slides = document.querySelectorAll('.carousel-slide');
-            const dots = document.querySelectorAll('.carousel-dot');
-            const prev = document.querySelector('.carousel-prev');
-            const next = document.querySelector('.carousel-next');
-            const container = document.querySelector('.hero-carousel');
-            if (!slides.length) return;
-            let current = 0;
-            let interval;
-            let paused = false;
-            function goTo(idx) {
-                slides.forEach((s, i) => s.classList.toggle('active', i === idx));
-                dots.forEach((d, i) => {
-                    d.classList.toggle('active', i === idx);
-                });
-                current = idx;
-            }
-            function nextSlide() { goTo((current + 1) % slides.length); }
-            function prevSlide() { goTo((current - 1 + slides.length) % slides.length); }
-            function startAuto() { interval = setInterval(() => { if (!paused) nextSlide(); }, 5000); }
-            function stopAuto() { clearInterval(interval); }
-            dots.forEach(d => d.addEventListener('click', function() {
-                stopAuto(); goTo(parseInt(this.dataset.slide)); startAuto();
-            }));
-            if (prev) prev.addEventListener('click', () => { stopAuto(); prevSlide(); startAuto(); });
-            if (next) next.addEventListener('click', () => { stopAuto(); nextSlide(); startAuto(); });
-            if (container) {
-                container.addEventListener('mouseenter', () => { paused = true; });
-                container.addEventListener('mouseleave', () => { paused = false; });
-            }
-            startAuto();
-        })();
-
         const observer = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
         document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
         document.querySelectorAll('a[href^="#"]').forEach(a => { a.addEventListener('click', function(e) { e.preventDefault(); const t = document.querySelector(this.getAttribute('href')); if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }); });
@@ -2074,6 +1904,7 @@
             realtek: { windows: 'https://www.realtek.com/en/downloads', linux: 'https://www.realtek.com/en/downloads' },
             ghub: { windows: 'https://www.logitechg.com/en-us/innovation/g-hub.html', linux: null },
             sdi: { windows: 'https://sdi-tool.org/download/', linux: null },
+            '3dchip': { windows: 'https://www.3dpchip.com/3dp/chip_down_lite.php?pl=es', linux: null },
             chrome: { windows: 'https://www.google.com/chrome/', linux: 'https://www.google.com/chrome/' },
             brave: { windows: 'https://brave.com/download/', linux: 'https://brave.com/linux/' },
             safari: { windows: 'https://support.apple.com/downloads/safari', linux: null },
@@ -2232,6 +2063,7 @@
             { name: 'Realtek Audio', desc: 'Controladores de audio HD', icon: 'fas fa-volume-up', cat: 'Drivers', action: () => showOSPicker('realtek') },
             { name: 'Logitech G HUB', desc: 'Software periféricos Logitech', icon: 'fas fa-mouse', cat: 'Drivers', action: () => showOSPicker('ghub') },
             { name: 'Snappy Driver Installer', desc: 'Actualizador de drivers offline', icon: 'fas fa-tools', cat: 'Drivers', action: () => showOSPicker('sdi') },
+            { name: '3DP Chip', desc: 'Detector de hardware y descarga de drivers', icon: 'fas fa-microchip', cat: 'Drivers', action: () => showOSPicker('3dchip') },
             { name: 'C&C Red Alert 2', desc: 'Estrategia en tiempo real clásico', icon: 'fas fa-crosshairs', cat: 'Juegos', action: () => openCatModal('juegos-unificados') },
             { name: 'Estalingrado Corp App', desc: 'App oficial Intranet y EC Game', icon: 'fas fa-building', cat: 'APK Android', action: () => openCatModal('apk') },
             { name: 'WhatsApp APK', desc: 'Mensajería directa de Meta', icon: 'fab fa-whatsapp', cat: 'APK Android', action: () => openCatModal('apk') },
