@@ -460,6 +460,35 @@
             margin-top: 26px;
         }
 
+        .external-game-notice.compact {
+            justify-content: flex-start;
+            flex-direction: row;
+            flex-wrap: wrap;
+            min-height: 0;
+            padding: 16px 24px;
+            text-align: left;
+        }
+
+        .external-game-notice.compact .external-game-icon {
+            margin-bottom: 0;
+            font-size: 1.6rem;
+        }
+
+        .external-game-notice.compact h3 {
+            font-size: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .external-game-notice.compact p {
+            flex: 1 1 280px;
+            margin-top: 0;
+            font-size: 0.85rem;
+        }
+
+        .external-game-notice.compact .external-game-actions {
+            margin-top: 0;
+        }
+
         .game-actions {
             display: flex;
             flex-wrap: wrap;
@@ -602,6 +631,20 @@
                 height: 68vh;
             }
 
+            .external-game-notice.compact {
+                align-items: flex-start;
+                flex-direction: column;
+                padding: 16px;
+            }
+
+            .external-game-notice.compact .external-game-actions {
+                width: 100%;
+            }
+
+            .external-game-notice.compact .button {
+                width: 100%;
+            }
+
             .game-actions .button {
                 width: 100%;
             }
@@ -732,11 +775,12 @@
                         type="button"
                         data-game-title="FORGE OF EMPIRES"
                         data-game-subtitle="Construye y expande tu imperio en este juego de estrategia para el navegador."
-                        data-game-src="https://es2.forgeofempires.com/game/index?ref=plarium"
-                        data-game-url="https://es2.forgeofempires.com/game/index?ref=plarium"
-                        data-game-new-tab="true"
+                        data-game-src="https://es0.forgeofempires.com"
+                        data-game-url="https://es0.forgeofempires.com"
+                        data-account-required="true"
+                        data-account-url="https://es2.forgeofempires.com/game/index?ref=plarium"
                         data-external-title="CUENTA DE FORGE OF EMPIRES"
-                        data-external-message="El registro y el inicio de sesión se abrirán en una pestaña nueva para que puedas acceder al juego sin perder esta página."
+                        data-external-message="Regístrate o inicia sesión en una pestaña nueva. Al terminar, vuelve y actualiza el juego para cargarlo aquí."
                         data-external-icon="fa-user-plus"
                         data-external-primary-label="Registrarse"
                         data-external-primary-icon="fa-user-plus"
@@ -750,7 +794,7 @@
                         <span class="preview-content">
                             <span class="preview-title">FORGE OF EMPIRES</span>
                             <span class="preview-description">Construye y expande tu imperio en este juego de estrategia para el navegador.</span>
-                            <span class="preview-action"><i class="fas fa-external-link-alt" aria-hidden="true"></i> Abre en pestaña nueva</span>
+                            <span class="preview-action"><i class="fas fa-play" aria-hidden="true"></i> Jugable en esta página</span>
                         </span>
                     </button>
                     <button
@@ -858,6 +902,10 @@
                         <i class="fas fa-right-to-bracket" id="externalGameSecondaryIcon" aria-hidden="true"></i>
                         <span id="externalGameSecondaryLabel">Iniciar sesión</span>
                     </a>
+                    <button class="button" id="reloadGameButton" type="button" hidden>
+                        <i class="fas fa-rotate" aria-hidden="true"></i>
+                        Actualizar juego
+                    </button>
                 </div>
             </div>
             <div class="game-frame-wrap">
@@ -915,6 +963,7 @@
         const externalGameSecondaryLabel = document.getElementById('externalGameSecondaryLabel');
         const registerGameButton = document.getElementById('registerGameButton');
         const loginGameButton = document.getElementById('loginGameButton');
+        const reloadGameButton = document.getElementById('reloadGameButton');
 
         function sendHeroVideoCommand(command) {
             if (!heroVideoFrame || !heroVideoFrame.contentWindow) return;
@@ -959,33 +1008,40 @@
             const gameSubtitle = option.dataset.gameSubtitle;
             const gameUrl = option.dataset.gameUrl;
             const opensInNewTab = option.dataset.gameNewTab === 'true';
+            const accountRequired = option.dataset.accountRequired === 'true';
+            const accountUrl = option.dataset.accountUrl || gameUrl;
+            const externalTitle = option.dataset.externalTitle || gameTitle;
+            const externalMessage = option.dataset.externalMessage || (accountRequired
+                ? 'El registro y el inicio de sesión se abrirán en una pestaña nueva para que puedas jugar sin perder esta página.'
+                : 'Este juego se abrirá en una pestaña nueva para que puedas jugar sin perder esta página.');
+            const primaryLabel = option.dataset.externalPrimaryLabel || (accountRequired ? 'Crear cuenta' : 'Abrir en pestaña');
+            const secondaryLabel = option.dataset.externalSecondaryLabel || '';
+            const primaryUrl = option.dataset.registerUrl || accountUrl;
+            const secondaryUrl = option.dataset.loginUrl || accountUrl;
+
+            externalGameIcon.className = 'fas ' + (option.dataset.externalIcon || 'fa-external-link-alt') + ' external-game-icon';
+            externalGameTitle.textContent = externalTitle;
+            externalGameMessage.textContent = externalMessage;
+            externalGamePrimaryIcon.className = 'fas ' + (option.dataset.externalPrimaryIcon || 'fa-external-link-alt');
+            externalGamePrimaryLabel.textContent = primaryLabel;
+            externalGameSecondaryIcon.className = 'fas ' + (option.dataset.externalSecondaryIcon || 'fa-external-link-alt');
+            externalGameSecondaryLabel.textContent = secondaryLabel;
+            registerGameButton.setAttribute('href', primaryUrl);
+            loginGameButton.setAttribute('href', secondaryUrl);
+            loginGameButton.hidden = !secondaryLabel;
+            reloadGameButton.hidden = !accountRequired;
+            externalGameNotice.classList.toggle('compact', accountRequired && !opensInNewTab);
+            externalGameNotice.hidden = !opensInNewTab && !accountRequired;
 
             if (opensInNewTab) {
-                const externalTitle = option.dataset.externalTitle || gameTitle;
-                const externalMessage = option.dataset.externalMessage || 'Este juego se abrirá en una pestaña nueva para que puedas jugar sin perder esta página.';
-                const primaryLabel = option.dataset.externalPrimaryLabel || 'Abrir en pestaña';
-                const secondaryLabel = option.dataset.externalSecondaryLabel || '';
-
                 window.open(gameUrl, '_blank', 'noopener,noreferrer');
                 gameFrame.hidden = true;
                 gameFrameWrap.hidden = true;
-                externalGameNotice.hidden = false;
                 fullscreenGame.hidden = true;
                 activeGameStatus.textContent = 'Nueva pestaña';
-                externalGameIcon.className = 'fas ' + (option.dataset.externalIcon || 'fa-external-link-alt') + ' external-game-icon';
-                externalGameTitle.textContent = externalTitle;
-                externalGameMessage.textContent = externalMessage;
-                externalGamePrimaryIcon.className = 'fas ' + (option.dataset.externalPrimaryIcon || 'fa-external-link-alt');
-                externalGamePrimaryLabel.textContent = primaryLabel;
-                externalGameSecondaryIcon.className = 'fas ' + (option.dataset.externalSecondaryIcon || 'fa-external-link-alt');
-                externalGameSecondaryLabel.textContent = secondaryLabel;
-                registerGameButton.setAttribute('href', gameUrl);
-                loginGameButton.setAttribute('href', gameUrl);
-                loginGameButton.hidden = !secondaryLabel;
             } else {
                 gameFrame.hidden = false;
                 gameFrameWrap.hidden = false;
-                externalGameNotice.hidden = true;
                 fullscreenGame.hidden = false;
                 activeGameStatus.textContent = 'Reproduciendo';
 
@@ -1014,6 +1070,15 @@
             option.addEventListener('click', function() {
                 selectGame(option);
             });
+        });
+
+        reloadGameButton.addEventListener('click', function() {
+            const source = gameFrame.getAttribute('src');
+
+            if (!source) return;
+
+            gameFrame.setAttribute('src', source);
+            gameFrame.focus();
         });
 
         fullscreenGame.addEventListener('click', async function() {
