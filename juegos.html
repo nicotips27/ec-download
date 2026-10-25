@@ -182,7 +182,9 @@
         }
 
         .game-selector {
-            margin-bottom: 28px;
+            padding: 24px;
+            border-bottom: 1px solid rgba(232, 184, 75, 0.14);
+            background: rgba(8, 12, 20, 0.72);
         }
 
         .selector-heading {
@@ -313,8 +315,30 @@
         }
 
         .game-player {
+            display: flex;
+            flex-direction: column;
             margin-top: 28px;
             scroll-margin-top: 88px;
+        }
+
+        .game-player > .game-header {
+            order: 1;
+        }
+
+        .game-player > .external-game-notice {
+            order: 2;
+        }
+
+        .game-player > .game-frame-wrap {
+            order: 3;
+        }
+
+        .game-player > .game-selector {
+            order: 4;
+        }
+
+        .game-player > .game-actions {
+            order: 5;
         }
 
         .game-card {
@@ -531,6 +555,10 @@
                 font-size: 1rem;
             }
 
+            .game-selector {
+                padding: 16px;
+            }
+
             .selector-heading {
                 align-items: flex-start;
                 flex-direction: column;
@@ -624,88 +652,6 @@
     </section>
 
     <main class="page">
-        <section class="game-selector" aria-labelledby="game-selector-title">
-            <div class="selector-heading">
-                <h2 id="game-selector-title">ELIGE TU JUEGO</h2>
-                <p>La selección cambia el reproductor automáticamente. Las vistas previas permanecen visibles.</p>
-            </div>
-            <div class="game-grid" aria-label="Vistas previas de juegos">
-                <button
-                    class="game-option active"
-                    type="button"
-                    data-game-title="DEMIURGO BOX"
-                    data-game-subtitle="Simulador de dios y guía de civilizaciones."
-                    data-game-src="https://nicotips27.github.io/Demiurgo-box/"
-                    data-game-url="https://nicotips27.github.io/Demiurgo-box/"
-                    aria-pressed="true"
-                >
-                    <span class="preview-image">
-                        <img src="https://lh3.googleusercontent.com/p/AF1QipMuCcZ2IkOGSBwsjM60JmJAfaYzqIjrO8tUa7sC=s680-w680-h510-rw" alt="Vista previa de Demiurgo Box" loading="lazy">
-                    </span>
-                    <span class="preview-content">
-                        <span class="preview-title">DEMIURGO BOX</span>
-                        <span class="preview-description">Simulador de dios y guía de civilizaciones.</span>
-                        <span class="preview-action"><i class="fas fa-play" aria-hidden="true"></i> Reproducción automática</span>
-                    </span>
-                </button>
-                <button
-                    class="game-option"
-                    type="button"
-                    data-game-title="DRIVE & LISTEN"
-                    data-game-subtitle="Recorre más de 100 ciudades mientras escuchas sus radios locales."
-                    data-game-src="https://driveandlisten.app/"
-                    data-game-url="https://driveandlisten.app/"
-                    aria-pressed="false"
-                >
-                    <span class="preview-image">
-                        <img src="https://ph-files.imgix.net/76a102e0-4873-470d-b8ce-2e4b8addf160?auto=format&auto=compress&codec=mozjpeg&cs=strip&w=304&h=190&fit=max&dpr=2" alt="Vista previa de Drive & Listen" loading="lazy">
-                    </span>
-                    <span class="preview-content">
-                        <span class="preview-title">DRIVE & LISTEN</span>
-                        <span class="preview-description">Recorre más de 100 ciudades mientras escuchas sus radios locales.</span>
-                        <span class="preview-action"><i class="fas fa-play" aria-hidden="true"></i> Reproducción automática</span>
-                    </span>
-                </button>
-                <button
-                    class="game-option"
-                    type="button"
-                    data-game-title="MINECRAFT CLASSIC"
-                    data-game-subtitle="Construye y explora mundos de bloques directamente desde el navegador."
-                    data-game-src="https://classic.minecraft.net/"
-                    data-game-url="https://classic.minecraft.net/"
-                    aria-pressed="false"
-                >
-                    <span class="preview-image">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvz2wfq4iYnqb95ANJjonw08OSUSrYfDX0fYGRyugUAA&s" alt="Vista previa de Minecraft Classic" loading="lazy">
-                    </span>
-                    <span class="preview-content">
-                        <span class="preview-title">MINECRAFT CLASSIC</span>
-                        <span class="preview-description">Construye y explora mundos de bloques directamente desde el navegador.</span>
-                        <span class="preview-action"><i class="fas fa-play" aria-hidden="true"></i> Reproducción automática</span>
-                    </span>
-                </button>
-                <button
-                    class="game-option"
-                    type="button"
-                    data-game-title="FORGE OF EMPIRES"
-                    data-game-subtitle="Construye y expande tu imperio en este juego de estrategia para el navegador."
-                    data-game-src="https://es2.forgeofempires.com/game/index?ref=plarium"
-                    data-game-url="https://es2.forgeofempires.com/game/index?ref=plarium"
-                    data-game-new-tab="true"
-                    aria-pressed="false"
-                >
-                    <span class="preview-image">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2aG2a1gq3LU50EdIlFyqTNUlwJWpBzZG6oK39CXr_NA&s=10" alt="Vista previa de Forge of Empires" loading="lazy">
-                    </span>
-                    <span class="preview-content">
-                        <span class="preview-title">FORGE OF EMPIRES</span>
-                        <span class="preview-description">Construye y expande tu imperio en este juego de estrategia para el navegador.</span>
-                        <span class="preview-action"><i class="fas fa-external-link-alt" aria-hidden="true"></i> Abre en pestaña nueva</span>
-                    </span>
-                </button>
-            </div>
-        </section>
-
         <section class="game-card game-player" aria-labelledby="active-game-title">
             <div class="game-header">
                 <div>
@@ -714,6 +660,141 @@
                 </div>
                 <span class="status"><span class="status-dot"></span><span id="active-game-status">Reproduciendo</span></span>
             </div>
+            <section class="game-selector" aria-labelledby="game-selector-title">
+                <div class="selector-heading">
+                    <h2 id="game-selector-title">ELIGE TU JUEGO</h2>
+                    <p>La selección cambia el reproductor automáticamente. Las vistas previas permanecen visibles.</p>
+                </div>
+                <div class="game-grid" aria-label="Vistas previas de juegos">
+                    <button
+                        class="game-option active"
+                        type="button"
+                        data-game-title="DEMIURGO BOX"
+                        data-game-subtitle="Simulador de dios y guía de civilizaciones."
+                        data-game-src="https://nicotips27.github.io/Demiurgo-box/"
+                        data-game-url="https://nicotips27.github.io/Demiurgo-box/"
+                        aria-pressed="true"
+                    >
+                        <span class="preview-image">
+                            <img src="https://lh3.googleusercontent.com/p/AF1QipMuCcZ2IkOGSBwsjM60JmJAfaYzqIjrO8tUa7sC=s680-w680-h510-rw" alt="Vista previa de Demiurgo Box" loading="lazy">
+                        </span>
+                        <span class="preview-content">
+                            <span class="preview-title">DEMIURGO BOX</span>
+                            <span class="preview-description">Simulador de dios y guía de civilizaciones.</span>
+                            <span class="preview-action"><i class="fas fa-play" aria-hidden="true"></i> Reproducción automática</span>
+                        </span>
+                    </button>
+                    <button
+                        class="game-option"
+                        type="button"
+                        data-game-title="DRIVE & LISTEN"
+                        data-game-subtitle="Recorre más de 100 ciudades mientras escuchas sus radios locales."
+                        data-game-src="https://driveandlisten.app/"
+                        data-game-url="https://driveandlisten.app/"
+                        aria-pressed="false"
+                    >
+                        <span class="preview-image">
+                            <img src="https://ph-files.imgix.net/76a102e0-4873-470d-b8ce-2e4b8addf160?auto=format&auto=compress&codec=mozjpeg&cs=strip&w=304&h=190&fit=max&dpr=2" alt="Vista previa de Drive & Listen" loading="lazy">
+                        </span>
+                        <span class="preview-content">
+                            <span class="preview-title">DRIVE & LISTEN</span>
+                            <span class="preview-description">Recorre más de 100 ciudades mientras escuchas sus radios locales.</span>
+                            <span class="preview-action"><i class="fas fa-play" aria-hidden="true"></i> Reproducción automática</span>
+                        </span>
+                    </button>
+                    <button
+                        class="game-option"
+                        type="button"
+                        data-game-title="MINECRAFT CLASSIC"
+                        data-game-subtitle="Construye y explora mundos de bloques directamente desde el navegador."
+                        data-game-src="https://classic.minecraft.net/"
+                        data-game-url="https://classic.minecraft.net/"
+                        aria-pressed="false"
+                    >
+                        <span class="preview-image">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvz2wfq4iYnqb95ANJjonw08OSUSrYfDX0fYGRyugUAA&s" alt="Vista previa de Minecraft Classic" loading="lazy">
+                        </span>
+                        <span class="preview-content">
+                            <span class="preview-title">MINECRAFT CLASSIC</span>
+                            <span class="preview-description">Construye y explora mundos de bloques directamente desde el navegador.</span>
+                            <span class="preview-action"><i class="fas fa-play" aria-hidden="true"></i> Reproducción automática</span>
+                        </span>
+                    </button>
+                    <button
+                        class="game-option"
+                        type="button"
+                        data-game-title="FORGE OF EMPIRES"
+                        data-game-subtitle="Construye y expande tu imperio en este juego de estrategia para el navegador."
+                        data-game-src="https://es2.forgeofempires.com/game/index?ref=plarium"
+                        data-game-url="https://es2.forgeofempires.com/game/index?ref=plarium"
+                        data-game-new-tab="true"
+                        aria-pressed="false"
+                    >
+                        <span class="preview-image">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2aG2a1gq3LU50EdIlFyqTNUlwJWpBzZG6oK39CXr_NA&s=10" alt="Vista previa de Forge of Empires" loading="lazy">
+                        </span>
+                        <span class="preview-content">
+                            <span class="preview-title">FORGE OF EMPIRES</span>
+                            <span class="preview-description">Construye y expande tu imperio en este juego de estrategia para el navegador.</span>
+                            <span class="preview-action"><i class="fas fa-external-link-alt" aria-hidden="true"></i> Abre en pestaña nueva</span>
+                        </span>
+                    </button>
+                    <button
+                        class="game-option"
+                        type="button"
+                        data-game-title="TANUKI SUNSET"
+                        data-game-subtitle="Aventura musical para jugar directamente desde el navegador."
+                        data-game-src="https://gams-offline.github.io/Gams/g/g/Gam.html?icon=https://gams-offline.github.io/Gams/img/tanukisunset.png&name=Tanuki%20Sunset&src=https://gams-offline.github.io/Gams/g/g/tanukisunset/tanukisunset.html"
+                        data-game-url="https://gams-offline.github.io/Gams/g/g/Gam.html?icon=https://gams-offline.github.io/Gams/img/tanukisunset.png&name=Tanuki%20Sunset&src=https://gams-offline.github.io/Gams/g/g/tanukisunset/tanukisunset.html"
+                        aria-pressed="false"
+                    >
+                        <span class="preview-image">
+                            <img src="IMAGENES/GAME27/Captura%20de%20pantalla%202026-10-25%20055816.png" alt="Vista previa de Tanuki Sunset" loading="lazy">
+                        </span>
+                        <span class="preview-content">
+                            <span class="preview-title">TANUKI SUNSET</span>
+                            <span class="preview-description">Aventura musical para jugar directamente desde el navegador.</span>
+                            <span class="preview-action"><i class="fas fa-play" aria-hidden="true"></i> Reproducción automática</span>
+                        </span>
+                    </button>
+                    <button
+                        class="game-option"
+                        type="button"
+                        data-game-title="SUPER MARIO 64"
+                        data-game-subtitle="Aventura clásica de plataformas directamente desde el navegador."
+                        data-game-src="https://gams-offline.github.io/Gams/g/g/Gam.html?icon=https://gams-offline.github.io/Gams/img/supermario64.png&name=Super%20Mario%2064&src=https://gams-offline.github.io/Gams/g/supermario64.html"
+                        data-game-url="https://gams-offline.github.io/Gams/g/g/Gam.html?icon=https://gams-offline.github.io/Gams/img/supermario64.png&name=Super%20Mario%2064&src=https://gams-offline.github.io/Gams/g/supermario64.html"
+                        aria-pressed="false"
+                    >
+                        <span class="preview-image">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtZD5gbGUV_pAGFRoPVxQ33xTMZsLAGLXggci8fOd9Jw&s" alt="Vista previa de Super Mario 64" loading="lazy">
+                        </span>
+                        <span class="preview-content">
+                            <span class="preview-title">SUPER MARIO 64</span>
+                            <span class="preview-description">Aventura clásica de plataformas directamente desde el navegador.</span>
+                            <span class="preview-action"><i class="fas fa-play" aria-hidden="true"></i> Reproducción automática</span>
+                        </span>
+                    </button>
+                    <button
+                        class="game-option"
+                        type="button"
+                        data-game-title="GREY BOX TESTING"
+                        data-game-subtitle="Juego de pruebas de caja gris para jugar directamente desde el navegador."
+                        data-game-src="https://gams-offline.github.io/Gams/g/g/Gam.html?icon=https://gams-offline.github.io/Gams/img/greyboxtesting.png&name=Grey%20Box%20Testing&src=https://gams-offline.github.io/Gams/g/g/greybox/index.html"
+                        data-game-url="https://gams-offline.github.io/Gams/g/g/Gam.html?icon=https://gams-offline.github.io/Gams/img/greyboxtesting.png&name=Grey%20Box%20Testing&src=https://gams-offline.github.io/Gams/g/g/greybox/index.html"
+                        aria-pressed="false"
+                    >
+                        <span class="preview-image">
+                            <img src="https://gams-offline.github.io/Gams/img/greyboxtesting.png" alt="Vista previa de Grey Box Testing" loading="lazy">
+                        </span>
+                        <span class="preview-content">
+                            <span class="preview-title">GREY BOX TESTING</span>
+                            <span class="preview-description">Juego de pruebas de caja gris para jugar directamente desde el navegador.</span>
+                            <span class="preview-action"><i class="fas fa-play" aria-hidden="true"></i> Reproducción automática</span>
+                        </span>
+                    </button>
+                </div>
+            </section>
             <div class="external-game-notice" id="externalGameNotice" role="region" aria-labelledby="external-game-title" hidden>
                 <i class="fas fa-user-plus external-game-icon" aria-hidden="true"></i>
                 <h3 id="external-game-title">CUENTA DE FORGE OF EMPIRES</h3>
@@ -767,6 +848,7 @@
     <script>
         const gameOptions = Array.from(document.querySelectorAll('.game-option'));
         const gameFrame = document.getElementById('gameFrame');
+        const gameFrameWrap = document.querySelector('.game-frame-wrap');
         const heroVideoFrame = document.querySelector('.games-hero-frame');
         const activeGameTitle = document.getElementById('active-game-title');
         const activeGameSubtitle = document.getElementById('active-game-subtitle');
@@ -812,6 +894,7 @@
             if (opensInNewTab) {
                 window.open(gameUrl, '_blank', 'noopener,noreferrer');
                 gameFrame.hidden = true;
+                gameFrameWrap.hidden = true;
                 externalGameNotice.hidden = false;
                 fullscreenGame.hidden = true;
                 activeGameStatus.textContent = 'Nueva pestaña';
@@ -819,6 +902,7 @@
                 loginGameButton.setAttribute('href', gameUrl);
             } else {
                 gameFrame.hidden = false;
+                gameFrameWrap.hidden = false;
                 externalGameNotice.hidden = true;
                 fullscreenGame.hidden = false;
                 activeGameStatus.textContent = 'Reproduciendo';
