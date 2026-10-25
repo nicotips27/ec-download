@@ -27,6 +27,10 @@
             box-sizing: border-box;
         }
 
+        [hidden] {
+            display: none !important;
+        }
+
         body {
             min-height: 100vh;
             color: var(--text);
@@ -385,6 +389,51 @@
             background: #000;
         }
 
+        .external-game-notice {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            min-height: 540px;
+            padding: 50px 24px;
+            color: var(--muted);
+            background: radial-gradient(circle at 50% 35%, rgba(232, 184, 75, 0.12), transparent 45%), #080d14;
+            text-align: center;
+        }
+
+        .external-game-notice[hidden] {
+            display: none;
+        }
+
+        .external-game-icon {
+            margin-bottom: 18px;
+            color: var(--gold);
+            font-size: 3rem;
+        }
+
+        .external-game-notice h3 {
+            color: #fff;
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            font-weight: 900;
+            letter-spacing: 2px;
+        }
+
+        .external-game-notice p {
+            max-width: 560px;
+            margin-top: 12px;
+            font-size: 1rem;
+            line-height: 1.55;
+        }
+
+        .external-game-actions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 26px;
+        }
+
         .game-actions {
             display: flex;
             flex-wrap: wrap;
@@ -514,7 +563,8 @@
             }
 
             .game-frame-wrap,
-            .game-frame {
+            .game-frame,
+            .external-game-notice {
                 min-height: 420px;
             }
 
@@ -641,6 +691,7 @@
                     data-game-subtitle="Construye y expande tu imperio en este juego de estrategia para el navegador."
                     data-game-src="https://es2.forgeofempires.com/game/index?ref=plarium"
                     data-game-url="https://es2.forgeofempires.com/game/index?ref=plarium"
+                    data-game-new-tab="true"
                     aria-pressed="false"
                 >
                     <span class="preview-image">
@@ -649,7 +700,7 @@
                     <span class="preview-content">
                         <span class="preview-title">FORGE OF EMPIRES</span>
                         <span class="preview-description">Construye y expande tu imperio en este juego de estrategia para el navegador.</span>
-                        <span class="preview-action"><i class="fas fa-play" aria-hidden="true"></i> Reproducción automática</span>
+                        <span class="preview-action"><i class="fas fa-external-link-alt" aria-hidden="true"></i> Abre en pestaña nueva</span>
                     </span>
                 </button>
             </div>
@@ -662,6 +713,21 @@
                     <p class="game-subtitle" id="active-game-subtitle">Simulador de dios y guía de civilizaciones.</p>
                 </div>
                 <span class="status"><span class="status-dot"></span><span id="active-game-status">Reproduciendo</span></span>
+            </div>
+            <div class="external-game-notice" id="externalGameNotice" role="region" aria-labelledby="external-game-title" hidden>
+                <i class="fas fa-user-plus external-game-icon" aria-hidden="true"></i>
+                <h3 id="external-game-title">CUENTA DE FORGE OF EMPIRES</h3>
+                <p>El registro y el inicio de sesión se abrirán en una pestaña nueva para que puedas acceder al juego sin perder esta página.</p>
+                <div class="external-game-actions">
+                    <a class="button primary" id="registerGameButton" href="https://es2.forgeofempires.com/game/index?ref=plarium" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-user-plus" aria-hidden="true"></i>
+                        Registrarse
+                    </a>
+                    <a class="button" id="loginGameButton" href="https://es2.forgeofempires.com/game/index?ref=plarium" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-right-to-bracket" aria-hidden="true"></i>
+                        Iniciar sesión
+                    </a>
+                </div>
             </div>
             <div class="game-frame-wrap">
                 <iframe
@@ -704,8 +770,12 @@
         const heroVideoFrame = document.querySelector('.games-hero-frame');
         const activeGameTitle = document.getElementById('active-game-title');
         const activeGameSubtitle = document.getElementById('active-game-subtitle');
+        const activeGameStatus = document.getElementById('active-game-status');
         const openGameButton = document.getElementById('open-game-button');
         const fullscreenGame = document.getElementById('fullscreenGame');
+        const externalGameNotice = document.getElementById('externalGameNotice');
+        const registerGameButton = document.getElementById('registerGameButton');
+        const loginGameButton = document.getElementById('loginGameButton');
 
         function sendHeroVideoCommand(command) {
             if (!heroVideoFrame || !heroVideoFrame.contentWindow) return;
@@ -737,10 +807,26 @@
             const gameTitle = option.dataset.gameTitle;
             const gameSubtitle = option.dataset.gameSubtitle;
             const gameUrl = option.dataset.gameUrl;
+            const opensInNewTab = option.dataset.gameNewTab === 'true';
 
-            if (gameFrame.getAttribute('src') !== gameSource) {
-                gameFrame.setAttribute('src', gameSource);
-                gameFrame.focus();
+            if (opensInNewTab) {
+                window.open(gameUrl, '_blank', 'noopener,noreferrer');
+                gameFrame.hidden = true;
+                externalGameNotice.hidden = false;
+                fullscreenGame.hidden = true;
+                activeGameStatus.textContent = 'Nueva pestaña';
+                registerGameButton.setAttribute('href', gameUrl);
+                loginGameButton.setAttribute('href', gameUrl);
+            } else {
+                gameFrame.hidden = false;
+                externalGameNotice.hidden = true;
+                fullscreenGame.hidden = false;
+                activeGameStatus.textContent = 'Reproduciendo';
+
+                if (gameFrame.getAttribute('src') !== gameSource) {
+                    gameFrame.setAttribute('src', gameSource);
+                    gameFrame.focus();
+                }
             }
 
             gameFrame.setAttribute('title', gameTitle + ' — juego online');
