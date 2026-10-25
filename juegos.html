@@ -683,10 +683,36 @@
     <script>
         const gameOptions = Array.from(document.querySelectorAll('.game-option'));
         const gameFrame = document.getElementById('gameFrame');
+        const heroVideoFrame = document.querySelector('.games-hero-frame');
         const activeGameTitle = document.getElementById('active-game-title');
         const activeGameSubtitle = document.getElementById('active-game-subtitle');
         const openGameButton = document.getElementById('open-game-button');
         const fullscreenGame = document.getElementById('fullscreenGame');
+
+        function sendHeroVideoCommand(command) {
+            if (!heroVideoFrame || !heroVideoFrame.contentWindow) return;
+            heroVideoFrame.contentWindow.postMessage(
+                JSON.stringify({ event: 'command', func: command, args: [] }),
+                'https://www.youtube.com'
+            );
+        }
+
+        function pauseHeroVideo() {
+            sendHeroVideoCommand('pauseVideo');
+        }
+
+        function resumeHeroVideo() {
+            sendHeroVideoCommand('playVideo');
+        }
+
+        function handleFullscreenChange() {
+            const fullscreenElement = document.fullscreenElement || document.webkitFullscreenElement;
+            if (fullscreenElement === gameFrame) {
+                pauseHeroVideo();
+            } else if (!fullscreenElement) {
+                resumeHeroVideo();
+            }
+        }
 
         function selectGame(option) {
             const gameSource = option.dataset.gameSrc;
@@ -721,11 +747,15 @@
         fullscreenGame.addEventListener('click', async function() {
             try {
                 await gameFrame.requestFullscreen();
+                pauseHeroVideo();
                 gameFrame.focus();
             } catch (error) {
                 window.open(fullscreenGame.dataset.gameUrl, '_blank', 'noopener,noreferrer');
             }
         });
+
+        document.addEventListener('fullscreenchange', handleFullscreenChange);
+        document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
     </script>
 </body>
 </html>
