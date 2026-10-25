@@ -333,11 +333,11 @@
             order: 3;
         }
 
-        .game-player > .game-selector {
+        .game-player > .game-actions {
             order: 4;
         }
 
-        .game-player > .game-actions {
+        .game-player > .game-selector {
             order: 5;
         }
 
@@ -401,6 +401,7 @@
         .game-frame-wrap {
             position: relative;
             min-height: 540px;
+            scroll-margin-top: 88px;
             background: #000;
         }
 
@@ -420,6 +421,7 @@
             flex-direction: column;
             min-height: 540px;
             padding: 50px 24px;
+            scroll-margin-top: 88px;
             color: var(--muted);
             background: radial-gradient(circle at 50% 35%, rgba(232, 184, 75, 0.12), transparent 45%), #080d14;
             text-align: center;
@@ -884,6 +886,18 @@
             }
         }
 
+        function scrollToGamePlayer(opensInNewTab) {
+            const target = opensInNewTab ? externalGameNotice : gameFrameWrap;
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            window.requestAnimationFrame(function() {
+                target.scrollIntoView({
+                    behavior: prefersReducedMotion ? 'auto' : 'smooth',
+                    block: 'start'
+                });
+            });
+        }
+
         function selectGame(option) {
             const gameSource = option.dataset.gameSrc;
             const gameTitle = option.dataset.gameTitle;
@@ -924,6 +938,8 @@
                 gameOption.classList.toggle('active', isActive);
                 gameOption.setAttribute('aria-pressed', isActive ? 'true' : 'false');
             });
+
+            scrollToGamePlayer(opensInNewTab);
         }
 
         gameOptions.forEach(function(option) {
