@@ -669,21 +669,26 @@
                 </div>
                 <div class="game-grid" aria-label="Vistas previas de juegos">
                     <button
-                        class="game-option active"
+                        class="game-option"
                         type="button"
-                        data-game-title="DEMIURGO BOX"
-                        data-game-subtitle="Simulador de dios y guía de civilizaciones."
-                        data-game-src="https://nicotips27.github.io/Demiurgo-box/"
-                        data-game-url="https://nicotips27.github.io/Demiurgo-box/"
-                        aria-pressed="true"
+                        data-game-title="DIABLO 2 CLASIC"
+                        data-game-subtitle="Aventura de acción tipo survivors inspirada en Diablo II para jugar en el navegador."
+                        data-game-src="https://d2survivors.lol/play/"
+                        data-game-url="https://d2survivors.lol/play/"
+                        data-game-new-tab="true"
+                        data-external-title="DIABLO 2 CLASIC"
+                        data-external-message="Este juego se abrirá en una pestaña nueva porque su proveedor no permite incrustarlo directamente en EC GAME."
+                        data-external-primary-label="JUGAR AHORA"
+                        data-external-primary-icon="fa-external-link-alt"
+                        aria-pressed="false"
                     >
                         <span class="preview-image">
-                            <img src="https://lh3.googleusercontent.com/p/AF1QipMuCcZ2IkOGSBwsjM60JmJAfaYzqIjrO8tUa7sC=s680-w680-h510-rw" alt="Vista previa de Demiurgo Box" loading="lazy">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfoyqtPmxjnbufGaKmZqVAeXPBrA0p3HrX0Bta1cHmyw&s=10" alt="Vista previa de Diablo 2 Clasic" loading="lazy">
                         </span>
                         <span class="preview-content">
-                            <span class="preview-title">DEMIURGO BOX</span>
-                            <span class="preview-description">Simulador de dios y guía de civilizaciones.</span>
-                            <span class="preview-action"><i class="fas fa-play" aria-hidden="true"></i> Reproducción automática</span>
+                            <span class="preview-title">DIABLO 2 CLASIC</span>
+                            <span class="preview-description">Aventura de acción tipo survivors inspirada en Diablo II para jugar en el navegador.</span>
+                            <span class="preview-action"><i class="fas fa-external-link-alt" aria-hidden="true"></i> Abre en pestaña nueva</span>
                         </span>
                     </button>
                     <button
@@ -730,6 +735,13 @@
                         data-game-src="https://es2.forgeofempires.com/game/index?ref=plarium"
                         data-game-url="https://es2.forgeofempires.com/game/index?ref=plarium"
                         data-game-new-tab="true"
+                        data-external-title="CUENTA DE FORGE OF EMPIRES"
+                        data-external-message="El registro y el inicio de sesión se abrirán en una pestaña nueva para que puedas acceder al juego sin perder esta página."
+                        data-external-icon="fa-user-plus"
+                        data-external-primary-label="Registrarse"
+                        data-external-primary-icon="fa-user-plus"
+                        data-external-secondary-label="Iniciar sesión"
+                        data-external-secondary-icon="fa-right-to-bracket"
                         aria-pressed="false"
                     >
                         <span class="preview-image">
@@ -813,20 +825,38 @@
                             <span class="preview-action"><i class="fas fa-play" aria-hidden="true"></i> Reproducción automática</span>
                         </span>
                     </button>
+                    <button
+                        class="game-option active"
+                        type="button"
+                        data-game-title="DEMIURGO BOX"
+                        data-game-subtitle="Simulador de dios y guía de civilizaciones."
+                        data-game-src="https://nicotips27.github.io/Demiurgo-box/"
+                        data-game-url="https://nicotips27.github.io/Demiurgo-box/"
+                        aria-pressed="true"
+                    >
+                        <span class="preview-image">
+                            <img src="https://lh3.googleusercontent.com/p/AF1QipMuCcZ2IkOGSBwsjM60JmJAfaYzqIjrO8tUa7sC=s680-w680-h510-rw" alt="Vista previa de Demiurgo Box" loading="lazy">
+                        </span>
+                        <span class="preview-content">
+                            <span class="preview-title">DEMIURGO BOX</span>
+                            <span class="preview-description">Simulador de dios y guía de civilizaciones.</span>
+                            <span class="preview-action"><i class="fas fa-play" aria-hidden="true"></i> Reproducción automática</span>
+                        </span>
+                    </button>
                 </div>
             </section>
             <div class="external-game-notice" id="externalGameNotice" role="region" aria-labelledby="external-game-title" hidden>
-                <i class="fas fa-user-plus external-game-icon" aria-hidden="true"></i>
+                <i class="fas fa-user-plus external-game-icon" id="externalGameIcon" aria-hidden="true"></i>
                 <h3 id="external-game-title">CUENTA DE FORGE OF EMPIRES</h3>
-                <p>El registro y el inicio de sesión se abrirán en una pestaña nueva para que puedas acceder al juego sin perder esta página.</p>
+                <p id="external-game-message">El registro y el inicio de sesión se abrirán en una pestaña nueva para que puedas acceder al juego sin perder esta página.</p>
                 <div class="external-game-actions">
                     <a class="button primary" id="registerGameButton" href="https://es2.forgeofempires.com/game/index?ref=plarium" target="_blank" rel="noopener noreferrer">
-                        <i class="fas fa-user-plus" aria-hidden="true"></i>
-                        Registrarse
+                        <i class="fas fa-user-plus" id="externalGamePrimaryIcon" aria-hidden="true"></i>
+                        <span id="externalGamePrimaryLabel">Registrarse</span>
                     </a>
                     <a class="button" id="loginGameButton" href="https://es2.forgeofempires.com/game/index?ref=plarium" target="_blank" rel="noopener noreferrer">
-                        <i class="fas fa-right-to-bracket" aria-hidden="true"></i>
-                        Iniciar sesión
+                        <i class="fas fa-right-to-bracket" id="externalGameSecondaryIcon" aria-hidden="true"></i>
+                        <span id="externalGameSecondaryLabel">Iniciar sesión</span>
                     </a>
                 </div>
             </div>
@@ -876,6 +906,13 @@
         const openGameButton = document.getElementById('open-game-button');
         const fullscreenGame = document.getElementById('fullscreenGame');
         const externalGameNotice = document.getElementById('externalGameNotice');
+        const externalGameIcon = document.getElementById('externalGameIcon');
+        const externalGameTitle = document.getElementById('external-game-title');
+        const externalGameMessage = document.getElementById('external-game-message');
+        const externalGamePrimaryIcon = document.getElementById('externalGamePrimaryIcon');
+        const externalGamePrimaryLabel = document.getElementById('externalGamePrimaryLabel');
+        const externalGameSecondaryIcon = document.getElementById('externalGameSecondaryIcon');
+        const externalGameSecondaryLabel = document.getElementById('externalGameSecondaryLabel');
         const registerGameButton = document.getElementById('registerGameButton');
         const loginGameButton = document.getElementById('loginGameButton');
 
@@ -924,14 +961,27 @@
             const opensInNewTab = option.dataset.gameNewTab === 'true';
 
             if (opensInNewTab) {
+                const externalTitle = option.dataset.externalTitle || gameTitle;
+                const externalMessage = option.dataset.externalMessage || 'Este juego se abrirá en una pestaña nueva para que puedas jugar sin perder esta página.';
+                const primaryLabel = option.dataset.externalPrimaryLabel || 'Abrir en pestaña';
+                const secondaryLabel = option.dataset.externalSecondaryLabel || '';
+
                 window.open(gameUrl, '_blank', 'noopener,noreferrer');
                 gameFrame.hidden = true;
                 gameFrameWrap.hidden = true;
                 externalGameNotice.hidden = false;
                 fullscreenGame.hidden = true;
                 activeGameStatus.textContent = 'Nueva pestaña';
+                externalGameIcon.className = 'fas ' + (option.dataset.externalIcon || 'fa-external-link-alt') + ' external-game-icon';
+                externalGameTitle.textContent = externalTitle;
+                externalGameMessage.textContent = externalMessage;
+                externalGamePrimaryIcon.className = 'fas ' + (option.dataset.externalPrimaryIcon || 'fa-external-link-alt');
+                externalGamePrimaryLabel.textContent = primaryLabel;
+                externalGameSecondaryIcon.className = 'fas ' + (option.dataset.externalSecondaryIcon || 'fa-external-link-alt');
+                externalGameSecondaryLabel.textContent = secondaryLabel;
                 registerGameButton.setAttribute('href', gameUrl);
                 loginGameButton.setAttribute('href', gameUrl);
+                loginGameButton.hidden = !secondaryLabel;
             } else {
                 gameFrame.hidden = false;
                 gameFrameWrap.hidden = false;

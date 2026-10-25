@@ -1,0 +1,74 @@
+RESUMEN DE CAMBIOS - EC Game by Estalingrado Corp
+=================================================
+
+Fecha: 2026-10-24
+Repositorio: https://github.com/nicotips27/ec-download
+Sitio publicado: https://nicotips27.github.io/ec-download/
+
+CAMBIOS REALIZADOS EN ESTA SESIÓN:
+----------------------------------
+
+1. PORTADA PRINCIPAL - Video de Cyberpunk 2077
+   - Reemplazó el carrusel por video YouTube (VhM3NRu23Sk) en autoplay, muteado y en bucle
+   - Título: "CYBERPUNK 2077"
+   - Botón "IR A LA DESCARGA" → https://nicolabm227-svg.github.io/NOXIS/
+   - Botón "COMPRAR OFICIAL" → https://www.cyberpunk.net/us/es/
+   - Control de sonido: al activar, video pasa a volumen 100 y el cartel se difumina (blur 14px, opacity 0.14)
+   - PR #4: https://github.com/nicotips27/ec-download/pull/4
+
+2. PUBLICIDAD BAJO EL BANNER
+   - Dos GIFs alineados horizontalmente debajo del banner
+   - Ambos enlazan a: https://www.google.com/search?q=estalingrado+corp...
+   - Carga diferida (loading="lazy")
+   - Responsive: 1.52fr / 1fr en desktop, apilados en móvil
+   - PR #3: https://github.com/nicotips27/ec-download/pull/3
+
+3. BOTÓN "IR A LA TIENDA" → "IR A LA DESCARGA"
+   - Cambio de texto simple en el botón principal de la portada
+   - PR #5: https://github.com/nicotips27/ec-download/pull/5
+
+4. NOXIS COMO TIENDA GRATUITA EN JUEGOS PC
+   - Nueva tarjeta en modal "JUEGOS PC" antes de Steam
+   - Badge "GRATUITO", icono store, descripción "Tienda gratuita de juegos seleccionados por EC Games"
+   - Botón VISITAR → https://nicolabm227-svg.github.io/NOXIS/
+   - PR #6: https://github.com/nicotips27/ec-download/pull/6
+
+5. SUBPÁGINA JUEGOS ONLINE (juegos.html)
+   - Nueva página: /juegos.html
+   - Menú principal: "EC GAME" → enlace a juegos.html (target="_self")
+   - Página dedicada con:
+     * Hero: "JUEGOS ONLINE" / "Juega directamente desde el navegador"
+     * Primer juego: DEMIURGO BOX incrustado vía iframe (https://nicotips27.github.io/Demiurgo-box/)
+     * Badge "Disponible online" verde
+     * Botones: "Abrir en pestaña" (nueva pestaña), "Pantalla completa" (requestFullscreen), "Volver al inicio"
+     * Sección "MÁS JUEGOS EN CAMINO"
+   - Menú principal actualizado: "EC GAME" → juegos.html (target="_self")
+
+ARCHIVOS MODIFICADOS/CREADOS:
+-----------------------------
+- index.html (modificado): portada, menú, botones, publicidad, tienda NOXIS
+- juegos.html (nuevo): subpágina de juegos online con Demiurgo Box incrustado
+- README.md (sin rastrear, no incluido en commits)
+
+DESPLIEGUE:
+-----------
+- GitHub Pages: https://nicotips27.github.io/ec-download/
+- Todos los cambios desplegados y verificados en producción
+- Workflow pages-build-deployment exitoso para cada PR
+
+PRs CREADOS Y FUSIONADOS:
+-------------------------
+#3: feat: publicidad bajo la portada
+#4: feat: boton de compra oficial de Cyberpunk
+#5: chore: renombra boton de descarga
+#6: feat: agrega NOXIS como tienda gratuita
+
+VERIFICACIONES REALIZADAS:
+--------------------------
+- Chromium headless con CDP: navegación, iframe, botones, fullscreen
+- git diff --check sin errores
+- Secret scanning en diffs
+- Enlaces y textos verificados en producción
+- Responsive test (mobile/desktop)
+
+TOTAL: 6 PRs fusionados, 1 archivo nuevo (juegos.html), index.html modificado múltiples veces.

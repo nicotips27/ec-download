@@ -1,0 +1,84 @@
+EXPORTACIÓN DE CHAT - EC Game by Estalingrado Corp
+Fecha: 2026-10-25
+Repositorio: https://github.com/nicotips27/ec-download
+Sitio publicado: https://nicotips27.github.io/ec-download/
+
+================================================================================
+TRANSCRIPCIÓN DE LA CONVERSACIÓN (mensajes visibles de usuario y asistente)
+================================================================================
+
+[1]
+Usuario: "que el apartado EC GAME en el menu te lleve a una sub pagina donde abra juego online el primer es este https://nicotips27.github.io/Demiurgo-box/"
+Asistente: Se implementó la subpágina `juegos.html` con el primer juego (Demiurgo Box) incrustado vía iframe, se actualizó el menú para que "EC GAME" apunte a `juegos.html` y se verificó el funcionamiento.
+
+[2]
+Usuario: "subelo"
+Asistente: Commit y push a `main` (`c513f3f`): "feat: subpagina de juegos online con Demiurgo Box". Cambios desplegados en GitHub Pages.
+
+[3]
+Usuario: "PUEDES AGREGAR ESTE JUEGO https://ncase.itch.io/wbwwb"
+Asistente: Se agregó "We Become What We Behold" como segundo juego en `juegos.html` usando el embed oficial de itch.io (`https://itch.io/embed/92115`). Se ajustó el selector y el script de pantalla completa.
+
+[4]
+Usuario: "REEMPLAZA  https://ncase.itch.io/wbwwb POR  https://driveandlisten.app/"
+Asistente: Se reemplazó el segundo juego por "Drive & Listen" (`https://driveandlisten.app/`). Se actualizó el iframe, la imagen y los enlaces.
+
+[5]
+Usuario: "AGREGA ESTE  www.burn.cd.vercel.app"
+Asistente: Se agregó "Burn" como tercer juego usando la URL proporcionada y una imagen de placeholder. Se verificó la URL.
+
+[6]
+Usuario: "BURN.CD NO FUNCIONA COLOCA https://classic.minecraft.net/"
+Asistente: Se reemplazó "Burn" por "Minecraft Classic" (`https://classic.minecraft.net/`). Se actualizó el iframe, imagen y enlaces.
+
+[7]
+Usuario: "QUE EL USUARIO ELIJA QUE JUEGO SE REPRODUCE AUTOMATICAMENTE PERO NO TAPES LA VISTA PREVIA"
+Asistente: Se rediseñó la página `juegos.html` con un selector de juegos (miniaturas visibles) y un único reproductor. Al hacer clic en una miniatura, el juego se carga automáticamente en el reproductor sin tapar las miniaturas.
+
+[8]
+Usuario: "AGREGA ESTA IMAGEN A MINECRAFT  https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvz2wfq4iYnqb95ANJjonw08OSUSrYfDX0fYGRyugUAA&s"
+Asistente: Se actualizó la imagen de Minecraft Classic con la URL proporcionada.
+
+[9]
+Usuario: "AGREGA ESTE VIDEO DE FONDO AL BANNER juegos.html https://www.youtube.com/watch?v=dMgKMsbdC5M"
+Asistente: Se agregó un banner con video de fondo (YouTube) en `juegos.html`, con overlay oscuro y controles de sonido (similar a la portada principal).
+
+[10]
+Usuario: "SUBELO"
+Asistente: Commit y push a `main` (`25d8116`): "feat: añadir video de fondo automático a juegos.html".
+
+[11]
+Usuario: "SI EL USUARIO SE PONE A JUGAR EN PANTALLA COMPLETA ESTE VIDEO SE DETENGA"
+Asistente: Se implementó pausa/reanudación del video de fondo al entrar/salir de pantalla completa en el juego (usando `postMessage` al iframe de YouTube). Commit y push (`f549dd5`).
+
+[12]
+Usuario: "SUBISTE?"
+Asistente: Confirmación de que el commit `f549dd5` ya fue subido a `main`.
+
+[13]
+Usuario: "AGREGA https://gams-offline.github.io/Games/g/g/Gam.html?icon=https://gams-offline.github.io/Gams/img/tanukisunset.png&name=Tanuki%20Sunset&src=https://gams-offline.github.io/Games/g/tanukisunset/tanukisunset.html IMAGEN https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvz2wfq4iYnqb95ANJjonw08OSUSrYfDX0fYGRyugUAA&s"
+Asistente: Se agregó "Tanuki Sunset" como quinto juego usando la captura local `IMAGENES/GAME27/Captura de pantalla 2026-10-25 055816.png` y la URL del juego.
+
+[13b]
+Usuario: "AGREGA https://gams-offline.github.io/Gams/g/g/Gam.html?icon=https://gams-offline.github.io/Gams/img/supermario64.png&name=Super%20Mario%2064&src=https://gams-offline.github.io/Gams/g/supermario64.html IMAGEN https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtZD5gbGUV_pAGFRoPVxQ33xTMZsLAGLXggci8fOd9Jw&s"
+Asistente: Se agregó "Super Mario 64" como sexto juego con la imagen remota indicada.
+
+[14]
+Usuario: "QUE ELIGE TU JUEGO ESTE DEBAJO DE Reproduciendo"
+Asistente: Se movió el selector "ELIGE TU JUEGO" para que aparezca visualmente debajo del estado "Reproduciendo" (dentro de la tarjeta del reproductor, después del encabezado).
+
+[15]
+Usuario: "PERO LA PANTALLA DONDE SE VE EL JUEGO CORRIENDO TAMBIEN QUE ESTE ARRIBA Y LOS JUEGOS ABAJO !"
+Asistente: Se reordenó visualmente el reproductor usando CSS Flexbox (`order`) para que el orden sea: 1) Encabezado con "Reproduciendo", 2) Pantalla del juego, 3) "ELIGE TU JUEGO" y miniaturas, 4) Botones de acción. También se corrigió Forge of Empires para que no deje espacio vacío al abrir en pestaña nueva.
+
+[16]
+Usuario: "EXPORTA EL CHAT EN UN TXT AL ESCRITOIO"
+Asistente: Se generó el archivo de exportación en el directorio del proyecto.
+
+[17]
+Usuario: "ES AQUI DONDE DEBES EXPORTAR C:\Users\nicot\OneDrive\Desktop\Estalingrado corp\ec-download"
+Asistente: Se guardó el archivo de exportación en la ruta indicada.
+
+================================================================================
+FIN DE LA EXPORTACIÓN
+================================================================================
