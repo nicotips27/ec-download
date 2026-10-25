@@ -101,8 +101,46 @@
             padding: 54px 5% 80px;
         }
 
-        .intro {
-            margin-bottom: 30px;
+        .games-hero {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: min(72vh, 680px);
+            overflow: hidden;
+            padding: 110px 5% 70px;
+            border-bottom: 1px solid rgba(102, 192, 240, 0.16);
+        }
+
+        .games-hero-frame {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+            pointer-events: none;
+        }
+
+        .games-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            background:
+                linear-gradient(180deg, rgba(5, 9, 15, 0.72), rgba(5, 9, 15, 0.48) 45%, rgba(5, 9, 15, 0.96)),
+                radial-gradient(circle at 50% 45%, rgba(26, 159, 255, 0.18), transparent 55%);
+        }
+
+        .games-hero-content {
+            position: relative;
+            z-index: 2;
+            width: min(100%, 900px);
+            text-align: center;
+        }
+
+        .games-hero h1 {
+            text-shadow: 0 6px 28px rgba(0, 0, 0, 0.85);
         }
 
         .kicker {
@@ -130,11 +168,149 @@
             line-height: 1;
         }
 
-        .intro p {
+        .games-hero-content p {
             max-width: 720px;
-            color: var(--muted);
+            margin: 0 auto;
+            color: #c4d0db;
             font-size: 1.1rem;
             line-height: 1.6;
+            text-shadow: 0 3px 14px rgba(0, 0, 0, 0.8);
+        }
+
+        .game-selector {
+            margin-bottom: 28px;
+        }
+
+        .selector-heading {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 16px;
+        }
+
+        .selector-heading h2 {
+            color: #fff;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 900;
+            letter-spacing: 1.5px;
+        }
+
+        .selector-heading p {
+            max-width: 520px;
+            color: var(--muted);
+            font-size: 0.95rem;
+            text-align: right;
+        }
+
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .game-option {
+            overflow: hidden;
+            padding: 0;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            background: #0b1018;
+            font-family: 'Rajdhani', sans-serif;
+            text-align: left;
+            cursor: pointer;
+            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .game-option:hover {
+            transform: translateY(-3px);
+            border-color: rgba(102, 192, 240, 0.55);
+        }
+
+        .game-option:focus-visible {
+            outline: 2px solid var(--primary);
+            outline-offset: 3px;
+        }
+
+        .game-option.active {
+            border-color: var(--gold);
+            box-shadow: 0 0 0 1px rgba(232, 184, 75, 0.18), 0 12px 30px rgba(0, 0, 0, 0.35);
+        }
+
+        .preview-image {
+            display: block;
+            aspect-ratio: 16 / 9;
+            overflow: hidden;
+            background: #05080d;
+        }
+
+        .preview-image img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.25s ease;
+        }
+
+        .game-option:hover .preview-image img {
+            transform: scale(1.03);
+        }
+
+        .preview-placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: #fff;
+            background: linear-gradient(#75b84e 0 40%, #6b4a2f 40% 56%, #293943 56%);
+            font-size: 3rem;
+            text-shadow: 0 5px 18px rgba(0, 0, 0, 0.55);
+        }
+
+        .preview-content {
+            display: block;
+            padding: 16px;
+        }
+
+        .preview-title {
+            display: block;
+            color: #fff;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        .preview-description {
+            display: block;
+            min-height: 2.7em;
+            margin-top: 6px;
+            color: var(--muted);
+            font-size: 0.84rem;
+            line-height: 1.35;
+        }
+
+        .preview-action {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            margin-top: 12px;
+            color: var(--gold);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .game-option.active .preview-action {
+            color: #fff1b8;
+        }
+
+        .game-player {
+            margin-top: 28px;
+            scroll-margin-top: 88px;
         }
 
         .game-card {
@@ -297,6 +473,41 @@
                 padding-top: 38px;
             }
 
+            .games-hero {
+                min-height: 520px;
+                padding: 90px 5% 50px;
+            }
+
+            .games-hero-content p {
+                font-size: 1rem;
+            }
+
+            .selector-heading {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .selector-heading p {
+                text-align: left;
+            }
+
+            .game-grid {
+                display: flex;
+                gap: 12px;
+                overflow-x: auto;
+                padding-bottom: 8px;
+                scroll-snap-type: x proximity;
+            }
+
+            .game-option {
+                flex: 0 0 84%;
+                scroll-snap-align: start;
+            }
+
+            .preview-description {
+                min-height: 0;
+            }
+
             .game-header {
                 align-items: flex-start;
                 flex-direction: column;
@@ -320,6 +531,16 @@
                 flex-direction: column;
             }
         }
+
+        @media (prefers-reduced-motion: reduce) {
+            .games-hero-frame {
+                display: none;
+            }
+
+            .games-hero {
+                background: radial-gradient(circle at 50% 35%, rgba(26, 159, 255, 0.2), transparent 50%), var(--darker);
+            }
+        }
     </style>
 </head>
 <body>
@@ -335,25 +556,99 @@
         </nav>
     </header>
 
-    <main class="page">
-        <section class="intro">
+    <section class="games-hero" aria-label="EC Game, juegos online">
+        <iframe
+            class="games-hero-frame"
+            src="https://www.youtube.com/embed/dMgKMsbdC5M?autoplay=1&mute=1&loop=1&playlist=dMgKMsbdC5M&controls=0&rel=0&playsinline=1&modestbranding=1&enablejsapi=1"
+            title="Video de fondo de EC Game"
+            allow="autoplay; encrypted-media; picture-in-picture"
+            allowfullscreen
+            aria-hidden="true"
+            tabindex="-1"
+        ></iframe>
+        <div class="games-hero-content">
             <span class="kicker">EC Game by Estalingrado Corp</span>
             <h1>JUEGOS ONLINE</h1>
-            <p>Juega directamente desde el navegador. Cada título se abre desde esta sección y funciona sin instalar nada.</p>
+            <p>Elige una vista previa y el juego se cargará automáticamente en el reproductor, sin tapar las miniaturas.</p>
+        </div>
+    </section>
+
+    <main class="page">
+        <section class="game-selector" aria-labelledby="game-selector-title">
+            <div class="selector-heading">
+                <h2 id="game-selector-title">ELIGE TU JUEGO</h2>
+                <p>La selección cambia el reproductor automáticamente. Las vistas previas permanecen visibles.</p>
+            </div>
+            <div class="game-grid" aria-label="Vistas previas de juegos">
+                <button
+                    class="game-option active"
+                    type="button"
+                    data-game-title="DEMIURGO BOX"
+                    data-game-subtitle="Simulador de dios y guía de civilizaciones."
+                    data-game-src="https://nicotips27.github.io/Demiurgo-box/"
+                    data-game-url="https://nicotips27.github.io/Demiurgo-box/"
+                    aria-pressed="true"
+                >
+                    <span class="preview-image">
+                        <img src="https://lh3.googleusercontent.com/p/AF1QipMuCcZ2IkOGSBwsjM60JmJAfaYzqIjrO8tUa7sC=s680-w680-h510-rw" alt="Vista previa de Demiurgo Box" loading="lazy">
+                    </span>
+                    <span class="preview-content">
+                        <span class="preview-title">DEMIURGO BOX</span>
+                        <span class="preview-description">Simulador de dios y guía de civilizaciones.</span>
+                        <span class="preview-action"><i class="fas fa-play" aria-hidden="true"></i> Reproducción automática</span>
+                    </span>
+                </button>
+                <button
+                    class="game-option"
+                    type="button"
+                    data-game-title="DRIVE & LISTEN"
+                    data-game-subtitle="Recorre más de 100 ciudades mientras escuchas sus radios locales."
+                    data-game-src="https://driveandlisten.app/"
+                    data-game-url="https://driveandlisten.app/"
+                    aria-pressed="false"
+                >
+                    <span class="preview-image">
+                        <img src="https://ph-files.imgix.net/76a102e0-4873-470d-b8ce-2e4b8addf160?auto=format&auto=compress&codec=mozjpeg&cs=strip&w=304&h=190&fit=max&dpr=2" alt="Vista previa de Drive & Listen" loading="lazy">
+                    </span>
+                    <span class="preview-content">
+                        <span class="preview-title">DRIVE & LISTEN</span>
+                        <span class="preview-description">Recorre más de 100 ciudades mientras escuchas sus radios locales.</span>
+                        <span class="preview-action"><i class="fas fa-play" aria-hidden="true"></i> Reproducción automática</span>
+                    </span>
+                </button>
+                <button
+                    class="game-option"
+                    type="button"
+                    data-game-title="MINECRAFT CLASSIC"
+                    data-game-subtitle="Construye y explora mundos de bloques directamente desde el navegador."
+                    data-game-src="https://classic.minecraft.net/"
+                    data-game-url="https://classic.minecraft.net/"
+                    aria-pressed="false"
+                >
+                    <span class="preview-image">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvz2wfq4iYnqb95ANJjonw08OSUSrYfDX0fYGRyugUAA&s" alt="Vista previa de Minecraft Classic" loading="lazy">
+                    </span>
+                    <span class="preview-content">
+                        <span class="preview-title">MINECRAFT CLASSIC</span>
+                        <span class="preview-description">Construye y explora mundos de bloques directamente desde el navegador.</span>
+                        <span class="preview-action"><i class="fas fa-play" aria-hidden="true"></i> Reproducción automática</span>
+                    </span>
+                </button>
+            </div>
         </section>
 
-        <section class="game-card" aria-labelledby="demiurgo-title">
+        <section class="game-card game-player" aria-labelledby="active-game-title">
             <div class="game-header">
                 <div>
-                    <h2 class="game-title" id="demiurgo-title">DEMIURGO BOX</h2>
-                    <p class="game-subtitle">Simulador de dios y guía de civilizaciones.</p>
+                    <h2 class="game-title" id="active-game-title" aria-live="polite">DEMIURGO BOX</h2>
+                    <p class="game-subtitle" id="active-game-subtitle">Simulador de dios y guía de civilizaciones.</p>
                 </div>
-                <span class="status"><span class="status-dot"></span>Disponible online</span>
+                <span class="status"><span class="status-dot"></span><span id="active-game-status">Reproduciendo</span></span>
             </div>
             <div class="game-frame-wrap">
                 <iframe
                     class="game-frame"
-                    id="demiurgoGame"
+                    id="gameFrame"
                     src="https://nicotips27.github.io/Demiurgo-box/"
                     title="Demiurgo Box — juego online"
                     allow="autoplay; fullscreen; gamepad"
@@ -361,11 +656,11 @@
                 ></iframe>
             </div>
             <div class="game-actions">
-                <a class="button primary" href="https://nicotips27.github.io/Demiurgo-box/" target="_blank" rel="noopener noreferrer">
-                    <i class="fas fa-play" aria-hidden="true"></i>
+                <a class="button primary" id="open-game-button" href="https://nicotips27.github.io/Demiurgo-box/" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-external-link-alt" aria-hidden="true"></i>
                     Abrir en pestaña
                 </a>
-                <button class="button" id="fullscreenGame" type="button">
+                <button class="button" id="fullscreenGame" type="button" data-game-url="https://nicotips27.github.io/Demiurgo-box/">
                     <i class="fas fa-expand" aria-hidden="true"></i>
                     Pantalla completa
                 </button>
@@ -386,13 +681,49 @@
     </main>
 
     <script>
-        const gameFrame = document.getElementById('demiurgoGame');
-        document.getElementById('fullscreenGame').addEventListener('click', async function() {
+        const gameOptions = Array.from(document.querySelectorAll('.game-option'));
+        const gameFrame = document.getElementById('gameFrame');
+        const activeGameTitle = document.getElementById('active-game-title');
+        const activeGameSubtitle = document.getElementById('active-game-subtitle');
+        const openGameButton = document.getElementById('open-game-button');
+        const fullscreenGame = document.getElementById('fullscreenGame');
+
+        function selectGame(option) {
+            const gameSource = option.dataset.gameSrc;
+            const gameTitle = option.dataset.gameTitle;
+            const gameSubtitle = option.dataset.gameSubtitle;
+            const gameUrl = option.dataset.gameUrl;
+
+            if (gameFrame.getAttribute('src') !== gameSource) {
+                gameFrame.setAttribute('src', gameSource);
+                gameFrame.focus();
+            }
+
+            gameFrame.setAttribute('title', gameTitle + ' — juego online');
+            activeGameTitle.textContent = gameTitle;
+            activeGameSubtitle.textContent = gameSubtitle;
+            openGameButton.setAttribute('href', gameUrl);
+            fullscreenGame.dataset.gameUrl = gameUrl;
+
+            gameOptions.forEach(function(gameOption) {
+                const isActive = gameOption === option;
+                gameOption.classList.toggle('active', isActive);
+                gameOption.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+            });
+        }
+
+        gameOptions.forEach(function(option) {
+            option.addEventListener('click', function() {
+                selectGame(option);
+            });
+        });
+
+        fullscreenGame.addEventListener('click', async function() {
             try {
                 await gameFrame.requestFullscreen();
                 gameFrame.focus();
             } catch (error) {
-                window.open('https://nicotips27.github.io/Demiurgo-box/', '_blank', 'noopener,noreferrer');
+                window.open(fullscreenGame.dataset.gameUrl, '_blank', 'noopener,noreferrer');
             }
         });
     </script>
