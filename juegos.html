@@ -737,6 +737,35 @@
                     <button
                         class="game-option"
                         type="button"
+                        data-game-title="KELDURN"
+                        data-game-subtitle="World of Warcraft 1.12 clásico, gratis y jugable directamente en el navegador."
+                        data-game-src="https://play.keldurn.com/"
+                        data-game-url="https://play.keldurn.com/"
+                        data-game-new-tab="true"
+                        data-account-required="true"
+                        data-external-title="KELDURN"
+                        data-external-message="Keldurn pide entrar con tu cuenta o con Google o Discord. Se abrirá en una pestaña nueva con el acceso y, al volver, sigues en el mundo."
+                        data-external-icon="fa-chess-knight"
+                        data-external-primary-label="ENTRAR AL REINO"
+                        data-external-primary-icon="fa-right-to-bracket"
+                        data-external-secondary-label="CREAR CUENTA"
+                        data-external-secondary-icon="fa-user-plus"
+                        data-primary-url="https://play.keldurn.com/login?lang=es"
+                        data-secondary-url="https://play.keldurn.com/register?lang=es"
+                        aria-pressed="false"
+                    >
+                        <span class="preview-image">
+                            <img src="https://blz-contentstack-images.akamaized.net/v3/assets/blt9c12f249ac15c7ec/bltb5a24e5ab1e2cfb0/6a88e3589b942efdb6f74110/wow-thumbnail-homepage.jpg" alt="Vista previa de Keldurn" loading="lazy">
+                        </span>
+                        <span class="preview-content">
+                            <span class="preview-title">KELDURN</span>
+                            <span class="preview-description">World of Warcraft 1.12 clásico, gratis y jugable directamente en el navegador.</span>
+                            <span class="preview-action"><i class="fas fa-right-to-bracket" aria-hidden="true"></i> Entra para jugar</span>
+                        </span>
+                    </button>
+                    <button
+                        class="game-option"
+                        type="button"
                         data-game-title="DRIVE & LISTEN"
                         data-game-subtitle="Recorre más de 100 ciudades mientras escuchas sus radios locales."
                         data-game-src="https://driveandlisten.app/"
@@ -840,6 +869,35 @@
                             <span class="preview-title">HOLE IO</span>
                             <span class="preview-description">Juego de Hole IO para jugar directamente desde el navegador.</span>
                             <span class="preview-action"><i class="fas fa-play" aria-hidden="true"></i> Reproducción automática</span>
+                        </span>
+                    </button>
+                    <button
+                        class="game-option"
+                        type="button"
+                        data-game-title="CITYRT"
+                        data-game-subtitle="Constructor de ciudades: carreteras, distritos, escuelas, hospitales y presupuesto municipal."
+                        data-game-src="https://cityrt.com/play/"
+                        data-game-url="https://cityrt.com/play/"
+                        data-game-new-tab="true"
+                        data-account-required="true"
+                        data-external-title="CITYRT"
+                        data-external-message="CityRT pide iniciar sesión para entrar a la partida. Se abrirá en una pestaña nueva con el acceso y, al volver, tu ciudad te espera."
+                        data-external-icon="fa-city"
+                        data-external-primary-label="INICIAR SESIÓN"
+                        data-external-primary-icon="fa-right-to-bracket"
+                        data-external-secondary-label="GUÍA DE JUGABILIDAD"
+                        data-external-secondary-icon="fa-book"
+                        data-register-url="https://cityrt.com/play/"
+                        data-login-url="https://cityrt.com/es/how"
+                        aria-pressed="false"
+                    >
+                        <span class="preview-image">
+                            <img src="IMAGENES/CITYRT/cityrt-preview.webp" alt="Vista previa de CityRT" loading="lazy">
+                        </span>
+                        <span class="preview-content">
+                            <span class="preview-title">CITYRT</span>
+                            <span class="preview-description">Constructor de ciudades: carreteras, distritos, escuelas, hospitales y presupuesto municipal.</span>
+                            <span class="preview-action"><i class="fas fa-right-to-bracket" aria-hidden="true"></i> Inicia sesión para jugar</span>
                         </span>
                     </button>
                     <button
@@ -989,8 +1047,8 @@
                 : 'Este juego se abrirá en una pestaña nueva para que puedas jugar sin perder esta página.');
             const primaryLabel = option.dataset.externalPrimaryLabel || (accountRequired ? 'Crear cuenta' : 'Abrir en pestaña');
             const secondaryLabel = option.dataset.externalSecondaryLabel || '';
-            const primaryUrl = option.dataset.registerUrl || accountUrl;
-            const secondaryUrl = option.dataset.loginUrl || accountUrl;
+            const primaryUrl = option.dataset.primaryUrl || option.dataset.registerUrl || accountUrl;
+            const secondaryUrl = option.dataset.secondaryUrl || option.dataset.loginUrl || accountUrl;
 
             externalGameIcon.className = 'fas ' + (option.dataset.externalIcon || 'fa-external-link-alt') + ' external-game-icon';
             externalGameTitle.textContent = externalTitle;
@@ -1002,7 +1060,7 @@
             registerGameButton.setAttribute('href', primaryUrl);
             loginGameButton.setAttribute('href', secondaryUrl);
             loginGameButton.hidden = !secondaryLabel;
-            reloadGameButton.hidden = !accountRequired;
+            reloadGameButton.hidden = !accountRequired || opensInNewTab;
             externalGameNotice.classList.toggle('compact', accountRequired && !opensInNewTab);
             externalGameNotice.hidden = !opensInNewTab && !accountRequired;
 
