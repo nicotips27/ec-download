@@ -1337,7 +1337,7 @@
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #171a21; z-index: 99999;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            transition: opacity 0.6s cubic-bezier(0.86, 0, 0.07, 1), visibility 0.6s;
+            transition: opacity 0.3ms linear, visibility 0.3ms;
         }
         .loader-wrapper.hidden { 
             opacity: 0; 
@@ -1388,8 +1388,8 @@
         }
         .loader-progress-bar {
             position: absolute; top: 0; left: 0; height: 100%;
-            background: var(--primary); width: 0%;
-            animation: fillProgress 1.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            background: var(--primary); width: 100%;
+            animation: fillProgress 0.3ms linear forwards;
         }
         @keyframes fillProgress {
             0% { width: 0%; }
@@ -1450,6 +1450,7 @@
         <nav>
             <ul id="navMenu">
                 <li><a href="#inicio">Inicio</a></li>
+                <li><a href="https://estalingradocorp.com.ar/" target="_self">Intra-net</a></li>
                 <li><a href="juegos.html" target="_self">EC GAME</a></li>
                 <li><a href="#software">Categorías</a></li>
             </ul>
@@ -1888,27 +1889,20 @@
     <footer><div class="footer-logo">EC <span>GAME</span></div><div class="social-links"><a href="https://www.facebook.com/ecdownloads"><i class="fab fa-facebook-f"></i></a><a href="https://x.com/Estalingrado27"><i class="fab fa-twitter"></i></a><a href="https://www.youtube.com/@ecdownload"><i class="fab fa-youtube"></i></a><a href="https://www.tumblr.com/fotopia"><i class="fab fa-tumblr"></i></a><a href="https://t.me/pcgameslatino"><i class="fab fa-telegram"></i></a></div><p>EC Game Software Lab <a href="https://centercorpec.wixsite.com/error404" style="color:#66c0f0; text-decoration:none;">©2027 by Estalingrado Corp Proudly</a></p></footer>
 
     <script>
-        // Logica avanzada de la pantalla de carga
-        window.addEventListener('load', function() {
-            const statusTexts = ["Estableciendo conexión...", "Verificando base de datos...", "Acceso Concedido."];
+        // Pantalla de carga con duración de 0.3 ms.
+        // Nota: 0.3 ms está por debajo del mínimo del navegador y de un cuadro (16.7 ms a 60 fps),
+        // por lo que se ejecuta en el mínimo posible y desaparece prácticamente al instante.
+        function hideLoader() {
             const statusEl = document.getElementById('loaderStatus');
-            let idx = 0;
-            
-            // Cambiar textos dinámicamente
-            const textInterval = setInterval(() => {
-                if(idx < statusTexts.length) {
-                    statusEl.innerText = statusTexts[idx];
-                    idx++;
-                }
-            }, 500);
-
-            // Ocultar la pantalla justo después de que la barra de progreso llegue al 100% (1600ms)
+            if (statusEl) statusEl.innerText = 'Acceso Concedido.';
             setTimeout(() => {
-                clearInterval(textInterval);
                 const loader = document.getElementById('loader');
-                if(loader) loader.classList.add('hidden');
-            }, 1800); 
-        });
+                if (loader) loader.classList.add('hidden');
+            }, 0.3);
+        }
+        // Ocultan sin esperar a window load para que la duración total sea de 0.3 ms
+        hideLoader();
+        window.addEventListener('load', hideLoader);
 
         const particlesContainer = document.getElementById('particles');
         for (let i = 0; i < 50; i++) { const p = document.createElement('div'); p.className = 'particle'; p.style.left = Math.random()*100+'%'; p.style.animationDelay = Math.random()*15+'s'; p.style.animationDuration = (Math.random()*10+10)+'s'; particlesContainer.appendChild(p); }

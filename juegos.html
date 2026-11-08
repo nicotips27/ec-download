@@ -534,6 +534,63 @@
             background: linear-gradient(135deg, #ffe58f, #e8b84b);
         }
 
+        .volume-control {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 14px;
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            background: rgba(102, 192, 240, 0.06);
+            color: var(--primary);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .volume-mute-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 34px;
+            height: 34px;
+            flex-shrink: 0;
+            padding: 0;
+            border: 1px solid var(--primary);
+            border-radius: 4px;
+            background: transparent;
+            color: var(--primary);
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+
+        .volume-mute-btn:hover {
+            background: var(--primary);
+            color: #07111b;
+        }
+
+        .volume-mute-btn:focus-visible {
+            outline: 2px solid var(--gold);
+            outline-offset: 2px;
+        }
+
+        .volume-slider {
+            width: 140px;
+            height: 4px;
+            accent-color: var(--gold);
+            cursor: pointer;
+        }
+
+        .volume-value {
+            min-width: 40px;
+            color: #fff;
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+        }
+
         .coming {
             display: flex;
             align-items: center;
@@ -718,6 +775,16 @@
                 width: 100%;
             }
 
+            .volume-control {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .volume-slider {
+                flex: 1;
+                width: auto;
+            }
+
             .coming {
                 align-items: flex-start;
                 flex-direction: column;
@@ -743,6 +810,7 @@
         </a>
         <nav aria-label="Navegación principal">
             <a href="index.html">Inicio</a>
+            <a href="https://estalingradocorp.com.ar/" target="_self">Intra-net</a>
             <a href="juegos.html" class="active" aria-current="page">EC GAME</a>
             <a href="index.html#software">Categorías</a>
         </nav>
@@ -1042,6 +1110,14 @@
                     <i class="fas fa-expand" aria-hidden="true"></i>
                     Pantalla completa
                 </button>
+                <div class="volume-control" id="volumeControl">
+                    <button class="volume-mute-btn" id="volumeMuteButton" type="button" aria-pressed="false" aria-label="Silenciar o activar el volumen del juego">
+                        <i class="fas fa-volume-high" id="volumeIcon" aria-hidden="true"></i>
+                    </button>
+                    <label for="gameVolumeSlider">Volumen</label>
+                    <input class="volume-slider" id="gameVolumeSlider" type="range" min="0" max="100" step="1" value="70" aria-label="Volumen del juego">
+                    <span class="volume-value" id="volumeValue" aria-live="polite">70%</span>
+                </div>
                 <a class="button" href="index.html">
                     <i class="fas fa-arrow-left" aria-hidden="true"></i>
                     Volver al inicio
@@ -1079,6 +1155,11 @@
         const registerGameButton = document.getElementById('registerGameButton');
         const loginGameButton = document.getElementById('loginGameButton');
         const reloadGameButton = document.getElementById('reloadGameButton');
+        const volumeControl = document.getElementById('volumeControl');
+        const volumeSlider = document.getElementById('gameVolumeSlider');
+        const volumeMuteButton = document.getElementById('volumeMuteButton');
+        const volumeIcon = document.getElementById('volumeIcon');
+        const volumeValue = document.getElementById('volumeValue');
 
         function sendHeroVideoCommand(command) {
             if (!heroVideoFrame || !heroVideoFrame.contentWindow) return;
@@ -1103,6 +1184,60 @@
             } else if (!fullscreenElement) {
                 resumeHeroVideo();
             }
+        }
+
+        let gameVolume = 70;
+        let isVolumeMuted = false;
+        let previousVolume = 70;
+
+        try {
+            const savedVolume = parseInt(localStorage.getItem('ecGameVolume'), 10);
+            if (!Number.isNaN(savedVolume)) {
+                gameVolume = Math.min(100, Math.max(0, savedVolume));
+                previousVolume = gameVolume > 0 ? gameVolume : 70;
+            }
+            isVolumeMuted = localStorage.getItem('ecGameMuted') === '1';
+        } catch (error) {}
+
+        function sendVolumeToGame() {
+            if (!gameFrame || !gameFrame.contentWindow) return;
+            const effectiveVolume = isVolumeMuted ? 0 : gameVolume;
+            try {
+                gameFrame.contentWindow.postMessage(
+                    JSON.stringify({ event: 'command', func: 'setVolume', args: [effectiveVolume] }),
+                    '*'
+                );
+            } catch (error) {}
+            try {
+                gameFrame.contentWindow.postMessage({
+                    action: 'setVolume',
+                    volume: effectiveVolume,
+                    value: effectiveVolume / 100,
+                    muted: isVolumeMuted
+                }, '*');
+            } catch (error) {}
+        }
+
+        function updateVolumeUI() {
+            const effectiveVolume = isVolumeMuted ? 0 : gameVolume;
+            if (volumeSlider) volumeSlider.value = String(effectiveVolume);
+            if (volumeValue) volumeValue.textContent = effectiveVolume + '%';
+            if (volumeMuteButton) volumeMuteButton.setAttribute('aria-pressed', isVolumeMuted ? 'true' : 'false');
+            if (volumeIcon) {
+                volumeIcon.className = 'fas ' + (effectiveVolume === 0 ? 'fa-volume-xmark' : effectiveVolume < 50 ? 'fa-volume-low' : 'fa-volume-high');
+            }
+        }
+
+        function setGameVolume(nextVolume, nextMuted) {
+            gameVolume = Math.min(100, Math.max(0, Math.round(nextVolume)));
+            if (gameVolume > 0) previousVolume = gameVolume;
+            isVolumeMuted = nextMuted;
+            updateVolumeUI();
+            sendVolumeToGame();
+            try {
+                localStorage.setItem('ecGameVolume', String(gameVolume));
+                localStorage.setItem('ecGameMuted', isVolumeMuted ? '1' : '0');
+            } catch (error) {}
         }
 
         function scrollToGamePlayer(opensInNewTab) {
@@ -1153,16 +1288,19 @@
                 gameFrame.hidden = true;
                 gameFrameWrap.hidden = true;
                 fullscreenGame.hidden = true;
+                if (volumeControl) volumeControl.hidden = true;
                 activeGameStatus.textContent = 'Nueva pestaña';
             } else {
                 gameFrame.hidden = false;
                 gameFrameWrap.hidden = false;
                 fullscreenGame.hidden = false;
+                if (volumeControl) volumeControl.hidden = false;
                 activeGameStatus.textContent = 'Reproduciendo';
 
                 if (gameFrame.getAttribute('src') !== gameSource) {
                     gameFrame.setAttribute('src', gameSource);
                     gameFrame.focus();
+                    sendVolumeToGame();
                 }
             }
 
@@ -1195,6 +1333,31 @@
             gameFrame.setAttribute('src', source);
             gameFrame.focus();
         });
+
+        if (volumeSlider) {
+            volumeSlider.addEventListener('input', function() {
+                const nextVolume = parseInt(volumeSlider.value, 10);
+                setGameVolume(nextVolume, nextVolume === 0);
+            });
+        }
+
+        if (volumeMuteButton) {
+            volumeMuteButton.addEventListener('click', function() {
+                if (isVolumeMuted) {
+                    setGameVolume(previousVolume, false);
+                } else {
+                    setGameVolume(gameVolume, true);
+                }
+            });
+        }
+
+        if (gameFrame) {
+            gameFrame.addEventListener('load', function() {
+                sendVolumeToGame();
+            });
+        }
+
+        updateVolumeUI();
 
         fullscreenGame.addEventListener('click', async function() {
             try {
